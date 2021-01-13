@@ -1,5 +1,2 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
-#include "GameModes/BR_GameMode_Base.h"
+#include "BR_GameMode_Base.h"
 
