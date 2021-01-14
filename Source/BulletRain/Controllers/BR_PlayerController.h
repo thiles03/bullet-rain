@@ -17,11 +17,11 @@ protected:
 
 private:
 	//VARIABLES
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category = "User Interface", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<UUserWidget> HUDClass;
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category = "User Interface", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<UUserWidget> WinScreenClass;
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category = "User Interface", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<UUserWidget> LoseScreenClass;
 
 	UUserWidget* CurrentWidget;

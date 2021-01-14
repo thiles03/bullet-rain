@@ -18,16 +18,31 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	//SETTERS
+	//Armour
 	UFUNCTION(BlueprintCallable)
-	void SetArmour(float ArmourValue);
+	void SetMaxArmour(float ArmourValue);
 	UFUNCTION(BlueprintCallable)
-	void SetHealth(float HealthValue);
+	void UpdateCurrentArmour(float ArmourValue);
+	//Health
+	UFUNCTION(BlueprintCallable)
+	void SetMaxHealth(float HealthValue);
+	UFUNCTION(BlueprintCallable)
+	void UpdateCurrentHealth(float HealthValue);
 
 	//GETTERS
+	//Armour
 	UFUNCTION(BlueprintCallable)
-	float GetArmour() const;
+	float GetArmourPercent() const;
+	//Health
 	UFUNCTION(BlueprintCallable)
-	float GetHealth() const;
+	float GetHealthPercent() const;
+
+	//FUNCTIONS
+	UFUNCTION(BlueprintCallable)
+	void TakeDamage(float Damage);
+	UFUNCTION(BlueprintCallable)
+	void TakeUnblockableDamage(float Damage, float UnblockableDamage);
+
 
 protected:
 	// Called when the game starts
@@ -35,9 +50,14 @@ protected:
 
 private:	
 	//VARIABLES
+	//Armour
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
-	float Armour = 1.0f;
-
+	float MaxArmour = 10.0f;
+	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
+	float CurrentArmour;
+	//Health
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
-	float Health = 1.0f;
+	float MaxHealth = 10.0f;
+	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
+	float CurrentHealth;
 };
