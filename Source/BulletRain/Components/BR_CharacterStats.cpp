@@ -2,6 +2,7 @@
 #include "BulletRain/Controllers/BR_PlayerController.h"
 #include "GameFramework/PlayerController.h"
 #include "Math/UnrealMathUtility.h"
+#include "TimerManager.h"
 
 //Constructor
 UBR_CharacterStats::UBR_CharacterStats()
@@ -24,7 +25,7 @@ void UBR_CharacterStats::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	//Health regen
-	if (CurrentHealth > 0)
+	if (CurrentHealth > 0 && CanRegen)
 	{
 		UpdateCurrentHealth((GetWorld()->GetDeltaSeconds()) * HealthRegenRate);
 	}
@@ -71,6 +72,8 @@ void UBR_CharacterStats::TakeDamage(float Damage)
 	if (RemainingDamage < 0)
 	{
 		UpdateCurrentHealth(RemainingDamage);
+		CanRegen = false;
+		GetOwner()->GetWorldTimerManager().SetTimer(RegenResetTimer, this, &UBR_CharacterStats::EnableRegen, RegenDelay, false);
 		PlayerController->CreateDamageVignette();
 	}
 }
@@ -80,4 +83,13 @@ void UBR_CharacterStats::TakeUnblockableDamage(float Damage, float UnblockableDa
 {
 	TakeDamage(Damage);
 	CurrentHealth = (FMath::Clamp((CurrentHealth - UnblockableDamage), 0.0f, MaxHealth));
+	CanRegen = false;
+	GetOwner()->GetWorldTimerManager().SetTimer(RegenResetTimer, this, &UBR_CharacterStats::EnableRegen, RegenDelay, false);
+	PlayerController->CreateDamageVignette();
+}
+
+// Enable health regeneration
+void UBR_CharacterStats::EnableRegen() 
+{
+	CanRegen = true;
 }

@@ -63,6 +63,13 @@ private:
 	float CurrentHealth;
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
 	float HealthRegenRate = .5f;
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	float RegenDelay = 5.f;
+	bool CanRegen = true;
+	FTimerHandle RegenResetTimer;
 	//Player controller
 	ABR_PlayerController* PlayerController;
+
+	//FUNCTIONS
+	void EnableRegen();
 };
