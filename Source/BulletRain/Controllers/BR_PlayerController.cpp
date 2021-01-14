@@ -6,7 +6,7 @@ void ABR_PlayerController::BeginPlay()
 {
     Super::BeginPlay();
     
-    CurrentWidget = CreateWidget(this, PlayerHUDClass);
+    CurrentWidget = CreateWidget(this, HUDClass);
     if (CurrentWidget)
     {
         CurrentWidget->AddToViewport();
