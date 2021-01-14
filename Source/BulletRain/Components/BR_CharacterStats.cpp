@@ -30,12 +30,12 @@ void UBR_CharacterStats::SetHealth(float HealthValue)
 }
 
 //GETTERS
-float UBR_CharacterStats::GetArmour() 
+float UBR_CharacterStats::GetArmour() const
 {
 	return Armour;
 }
 
-float UBR_CharacterStats::GetHealth() 
+float UBR_CharacterStats::GetHealth() const
 {
 	return Health;
 }

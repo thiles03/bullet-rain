@@ -25,9 +25,9 @@ public:
 
 	//GETTERS
 	UFUNCTION(BlueprintCallable)
-	float GetArmour();
+	float GetArmour() const;
 	UFUNCTION(BlueprintCallable)
-	float GetHealth();
+	float GetHealth() const;
 
 protected:
 	// Called when the game starts
