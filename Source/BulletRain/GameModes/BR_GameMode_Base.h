@@ -8,5 +8,5 @@ UCLASS()
 class BULLETRAIN_API ABR_GameMode_Base : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+
 };
