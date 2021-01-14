@@ -56,12 +56,12 @@ float UBR_CharacterStats::GetHealthPercent() const
 // Take general damage to armour and health
 void UBR_CharacterStats::TakeDamage(float Damage) 
 {
+	if (Damage <= 0) {return;}
 	float RemainingDamage = CurrentArmour - Damage;
-	UpdateCurrentArmour(Damage*-1);
-	UE_LOG(LogTemp, Warning, TEXT("%f"), RemainingDamage);
+	UpdateCurrentArmour(0 - Damage);
 	if (RemainingDamage < 0)
 	{
-		UpdateCurrentHealth(abs(RemainingDamage));
+		UpdateCurrentHealth(RemainingDamage);
 	}
 }
 
