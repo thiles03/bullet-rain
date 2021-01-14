@@ -1,34 +1,42 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+#include "BR_CharacterStats.h"
 
-
-#include "Components/BR_CharacterStats.h"
-
-// Sets default values for this component's properties
+//Constructor
 UBR_CharacterStats::UBR_CharacterStats()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
 }
-
 
 // Called when the game starts
 void UBR_CharacterStats::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// ...
-	
 }
-
 
 // Called every frame
 void UBR_CharacterStats::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+}
 
-	// ...
+//SETTERS
+void UBR_CharacterStats::SetArmour(float ArmourValue) 
+{
+	Armour = ArmourValue;
+}
+
+void UBR_CharacterStats::SetHealth(float HealthValue) 
+{
+	Health = HealthValue;
+}
+
+//GETTERS
+float UBR_CharacterStats::GetArmour() 
+{
+	return Armour;
+}
+
+float UBR_CharacterStats::GetHealth() 
+{
+	return Health;
 }
 

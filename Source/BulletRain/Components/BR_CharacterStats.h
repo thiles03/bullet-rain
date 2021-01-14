@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -16,13 +14,30 @@ public:
 	// Sets default values for this component's properties
 	UBR_CharacterStats();
 
+	// Called every frame
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	//SETTERS
+	UFUNCTION(BlueprintCallable)
+	void SetArmour(float ArmourValue);
+	UFUNCTION(BlueprintCallable)
+	void SetHealth(float HealthValue);
+
+	//GETTERS
+	UFUNCTION(BlueprintCallable)
+	float GetArmour();
+	UFUNCTION(BlueprintCallable)
+	float GetHealth();
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+private:	
+	//VARIABLES
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	float Armour = 1.0f;
 
-		
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	float Health = 1.0f;
 };
