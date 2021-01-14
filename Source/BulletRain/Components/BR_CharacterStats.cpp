@@ -19,6 +19,12 @@ void UBR_CharacterStats::BeginPlay()
 void UBR_CharacterStats::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	//Health regen
+	if (CurrentHealth > 0)
+	{
+		UpdateCurrentHealth((GetWorld()->GetDeltaSeconds()) * HealthRegenRate);
+	}
 }
 
 //SETTERS
@@ -53,7 +59,7 @@ float UBR_CharacterStats::GetHealthPercent() const
 	return CurrentHealth / MaxHealth;
 }
 
-// Take general damage to armour and health
+// Take blockable damage to armour and health
 void UBR_CharacterStats::TakeDamage(float Damage) 
 {
 	if (Damage <= 0) {return;}
@@ -65,10 +71,10 @@ void UBR_CharacterStats::TakeDamage(float Damage)
 	}
 }
 
-// Take general damage and unblockable damage
+// Take blockable damage and unblockable damage
 void UBR_CharacterStats::TakeUnblockableDamage(float Damage, float UnblockableDamage) 
 {
 	TakeDamage(Damage);
-	UpdateCurrentHealth(FMath::Clamp((CurrentHealth - UnblockableDamage), 0.0f, MaxHealth));
+	CurrentHealth = (FMath::Clamp((CurrentHealth - UnblockableDamage), 0.0f, MaxHealth));
 }
 

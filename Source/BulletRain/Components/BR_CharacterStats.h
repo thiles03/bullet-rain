@@ -52,12 +52,14 @@ private:
 	//VARIABLES
 	//Armour
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
-	float MaxArmour = 10.0f;
+	float MaxArmour = 100.0f;
 	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
 	float CurrentArmour;
 	//Health
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
-	float MaxHealth = 10.0f;
+	float MaxHealth = 100.0f;
 	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
 	float CurrentHealth;
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	float HealthRegenRate = .5f;
 };
