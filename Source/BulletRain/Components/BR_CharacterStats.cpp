@@ -1,4 +1,6 @@
 #include "BR_CharacterStats.h"
+#include "BulletRain/Controllers/BR_PlayerController.h"
+#include "GameFramework/PlayerController.h"
 #include "Math/UnrealMathUtility.h"
 
 //Constructor
@@ -11,12 +13,13 @@ UBR_CharacterStats::UBR_CharacterStats()
 void UBR_CharacterStats::BeginPlay()
 {
 	Super::BeginPlay();
+	PlayerController = Cast<ABR_PlayerController>(GetWorld()->GetFirstPlayerController());
 	CurrentArmour = MaxArmour;
 	CurrentHealth = MaxHealth;
 }
 
 // Called every frame
-void UBR_CharacterStats::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UBR_CharacterStats::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
@@ -28,22 +31,22 @@ void UBR_CharacterStats::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 }
 
 //SETTERS
-void UBR_CharacterStats::SetMaxArmour(float ArmourValue) 
+void UBR_CharacterStats::SetMaxArmour(float ArmourValue)
 {
 	MaxArmour = ArmourValue;
 }
 
-void UBR_CharacterStats::UpdateCurrentArmour(float ArmourValue) 
+void UBR_CharacterStats::UpdateCurrentArmour(float ArmourValue)
 {
 	CurrentArmour = FMath::Clamp(CurrentArmour + ArmourValue, 0.f, MaxArmour);
 }
 
-void UBR_CharacterStats::SetMaxHealth(float HealthValue) 
+void UBR_CharacterStats::SetMaxHealth(float HealthValue)
 {
 	MaxHealth = HealthValue;
 }
 
-void UBR_CharacterStats::UpdateCurrentHealth(float HealthValue) 
+void UBR_CharacterStats::UpdateCurrentHealth(float HealthValue)
 {
 	CurrentHealth = FMath::Clamp(CurrentHealth + HealthValue, 0.f, MaxHealth);
 }
@@ -60,7 +63,7 @@ float UBR_CharacterStats::GetHealthPercent() const
 }
 
 // Take blockable damage to armour and health
-void UBR_CharacterStats::TakeDamage(float Damage) 
+void UBR_CharacterStats::TakeDamage(float Damage)
 {
 	if (Damage <= 0) {return;}
 	float RemainingDamage = CurrentArmour - Damage;
@@ -68,13 +71,13 @@ void UBR_CharacterStats::TakeDamage(float Damage)
 	if (RemainingDamage < 0)
 	{
 		UpdateCurrentHealth(RemainingDamage);
+		PlayerController->CreateDamageVignette();
 	}
 }
 
 // Take blockable damage and unblockable damage
-void UBR_CharacterStats::TakeUnblockableDamage(float Damage, float UnblockableDamage) 
+void UBR_CharacterStats::TakeUnblockableDamage(float Damage, float UnblockableDamage)
 {
 	TakeDamage(Damage);
 	CurrentHealth = (FMath::Clamp((CurrentHealth - UnblockableDamage), 0.0f, MaxHealth));
 }
-

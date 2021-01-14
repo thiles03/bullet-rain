@@ -11,6 +11,10 @@ class BULLETRAIN_API ABR_PlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
+public:
+	//FUNCTIONS
+	void CreateDamageVignette();
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;	
@@ -27,4 +31,6 @@ private:
 	TSubclassOf<UUserWidget> LoseScreenClass;
 
 	UUserWidget* CurrentWidget;
+
+	//FUNCTIONS
 };

@@ -12,3 +12,12 @@ void ABR_PlayerController::BeginPlay()
         CurrentWidget->AddToViewport();
     }
 }
+
+void ABR_PlayerController::CreateDamageVignette() 
+{
+    UUserWidget* DamageVignette = CreateWidget(this, DamageVignetteClass);
+    if (DamageVignette)
+    {
+        DamageVignette->AddToViewport();
+    }
+}

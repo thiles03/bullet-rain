@@ -4,6 +4,7 @@
 #include "Components/ActorComponent.h"
 #include "BR_CharacterStats.generated.h"
 
+class ABR_PlayerController;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BULLETRAIN_API UBR_CharacterStats : public UActorComponent
@@ -62,4 +63,6 @@ private:
 	float CurrentHealth;
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
 	float HealthRegenRate = .5f;
+	//Player controller
+	ABR_PlayerController* PlayerController;
 };
