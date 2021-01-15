@@ -32,6 +32,9 @@ private:
 	void MoveForward(float AxisValue);
 	void MoveRight(float AxisValue);
 
+	//Combat
+	void Fire();
+
 	//VARIABLES
 	UPROPERTY(EditAnywhere, Category = "Movement", meta = (AllowPrivateAccess = "true"))
 	float RotationRate = 50.f;

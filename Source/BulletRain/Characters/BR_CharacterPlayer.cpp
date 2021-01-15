@@ -32,6 +32,10 @@ void ABR_CharacterPlayer::SetupPlayerInputComponent(UInputComponent *PlayerInput
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ABR_CharacterPlayer::LookUp);
 	PlayerInputComponent->BindAxis("LookRightRate", this, &ABR_CharacterPlayer::LookRight);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
+
+	// Combat
+	PlayerInputComponent->BindAction("FireRight", IE_Pressed, this, &ABR_CharacterPlayer::Fire);
+	PlayerInputComponent->BindAction("FireLeft", IE_Pressed, this, &ABR_CharacterPlayer::Fire);
 }
 
 void ABR_CharacterPlayer::LookRight(float AxisValue) 
@@ -54,5 +58,10 @@ void ABR_CharacterPlayer::MoveRight(float AxisValue)
 {
     FVector Direction = UKismetMathLibrary::GetRightVector(FRotator(0.0f, GetControlRotation().Yaw, 0.0f));
 	AddMovementInput(Direction, AxisValue);
+}
+
+void ABR_CharacterPlayer::Fire() 
+{
+	//TODO
 }
 

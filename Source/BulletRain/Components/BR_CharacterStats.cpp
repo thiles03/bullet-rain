@@ -74,7 +74,7 @@ void UBR_CharacterStats::TakeDamage(float Damage)
 		UpdateCurrentHealth(RemainingDamage);
 		CanRegen = false;
 		GetOwner()->GetWorldTimerManager().SetTimer(RegenResetTimer, this, &UBR_CharacterStats::EnableRegen, RegenDelay, false);
-		PlayerController->CreateDamageVignette();
+		PlayerController->CreateDamageVignette(); //TODO - Only if player character
 	}
 }
 
@@ -85,7 +85,7 @@ void UBR_CharacterStats::TakeUnblockableDamage(float Damage, float UnblockableDa
 	CurrentHealth = (FMath::Clamp((CurrentHealth - UnblockableDamage), 0.0f, MaxHealth));
 	CanRegen = false;
 	GetOwner()->GetWorldTimerManager().SetTimer(RegenResetTimer, this, &UBR_CharacterStats::EnableRegen, RegenDelay, false);
-	PlayerController->CreateDamageVignette();
+	PlayerController->CreateDamageVignette(); //TODO - Only if player character
 }
 
 // Enable health regeneration
