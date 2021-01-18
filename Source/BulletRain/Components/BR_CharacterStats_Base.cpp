@@ -1,8 +1,5 @@
 #include "BR_CharacterStats_Base.h"
-#include "BulletRain/Controllers/BR_PlayerController.h"
-#include "GameFramework/PlayerController.h"
 #include "Math/UnrealMathUtility.h"
-#include "TimerManager.h"
 
 //Constructor
 UBR_CharacterStats_Base::UBR_CharacterStats_Base()
@@ -14,7 +11,6 @@ UBR_CharacterStats_Base::UBR_CharacterStats_Base()
 void UBR_CharacterStats_Base::BeginPlay()
 {
 	Super::BeginPlay();
-	PlayerController = Cast<ABR_PlayerController>(GetWorld()->GetFirstPlayerController());
 	CurrentArmour = MaxArmour;
 	CurrentHealth = MaxHealth;
 }
@@ -24,11 +20,6 @@ void UBR_CharacterStats_Base::TickComponent(float DeltaTime, ELevelTick TickType
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	//Health regen
-	if (CurrentHealth > 0 && CanRegen)
-	{
-		UpdateCurrentHealth((GetWorld()->GetDeltaSeconds()) * HealthRegenRate);
-	}
 }
 
 //SETTERS
@@ -72,9 +63,6 @@ void UBR_CharacterStats_Base::TakeDamage(float Damage)
 	if (RemainingDamage < 0)
 	{
 		UpdateCurrentHealth(RemainingDamage);
-		CanRegen = false;
-		GetOwner()->GetWorldTimerManager().SetTimer(RegenResetTimer, this, &UBR_CharacterStats_Base::EnableRegen, RegenDelay, false);
-		PlayerController->CreateDamageVignette(); //TODO - Only if player character
 	}
 }
 
@@ -83,13 +71,4 @@ void UBR_CharacterStats_Base::TakeUnblockableDamage(float Damage, float Unblocka
 {
 	TakeDamage(Damage);
 	CurrentHealth = (FMath::Clamp((CurrentHealth - UnblockableDamage), 0.0f, MaxHealth));
-	CanRegen = false;
-	GetOwner()->GetWorldTimerManager().SetTimer(RegenResetTimer, this, &UBR_CharacterStats_Base::EnableRegen, RegenDelay, false);
-	PlayerController->CreateDamageVignette(); //TODO - Only if player character
-}
-
-// Enable health regeneration
-void UBR_CharacterStats_Base::EnableRegen() 
-{
-	CanRegen = true;
 }

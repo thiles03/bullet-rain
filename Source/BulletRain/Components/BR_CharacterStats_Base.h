@@ -4,8 +4,6 @@
 #include "Components/ActorComponent.h"
 #include "BR_CharacterStats_Base.generated.h"
 
-class ABR_PlayerController;
-
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BULLETRAIN_API UBR_CharacterStats_Base : public UActorComponent
 {
@@ -39,17 +37,14 @@ public:
 	float GetHealthPercent() const;
 
 	//FUNCTIONS
+	// Damage handlers
 	UFUNCTION(BlueprintCallable)
-	void TakeDamage(float Damage);
+	virtual void TakeDamage(float Damage);
 	UFUNCTION(BlueprintCallable)
-	void TakeUnblockableDamage(float Damage, float UnblockableDamage);
+	virtual void TakeUnblockableDamage(float Damage, float UnblockableDamage);
 
 
 protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
-
-private:	
 	//VARIABLES
 	//Armour
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
@@ -61,15 +56,11 @@ private:
 	float MaxHealth = 100.0f;
 	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
 	float CurrentHealth;
-	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
-	float HealthRegenRate = .5f;
-	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
-	float RegenDelay = 5.f;
-	bool CanRegen = true;
-	FTimerHandle RegenResetTimer;
-	//Player controller
-	ABR_PlayerController* PlayerController;
 
 	//FUNCTIONS
-	void EnableRegen();
+	// Called when the game starts
+	virtual void BeginPlay() override;
+
+private:	
+
 };

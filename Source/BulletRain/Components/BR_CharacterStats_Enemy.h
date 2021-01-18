@@ -4,7 +4,7 @@
 #include "BR_CharacterStats_Base.h"
 #include "BR_CharacterStats_Enemy.generated.h"
 
-UCLASS()
+UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BULLETRAIN_API UBR_CharacterStats_Enemy : public UBR_CharacterStats_Base
 {
 	GENERATED_BODY()
