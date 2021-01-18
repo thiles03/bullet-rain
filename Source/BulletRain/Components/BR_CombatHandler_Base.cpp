@@ -1,6 +1,7 @@
 #include "BR_CombatHandler_Base.h"
 
 // Constructor
+UBR_CombatHandler_Base::UBR_CombatHandler_Base()
 {
 	PrimaryComponentTick.bCanEverTick = true;
 

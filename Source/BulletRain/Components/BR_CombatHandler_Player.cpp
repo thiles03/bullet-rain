@@ -1,6 +1,7 @@
-#include "UBR_CombatHandler_Player.h"
+#include "BR_CombatHandler_Player.h"
 
 // Constructor
+UBR_CombatHandler_Player::UBR_CombatHandler_Player()
 {
 	PrimaryComponentTick.bCanEverTick = true;
 
