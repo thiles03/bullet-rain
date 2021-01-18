@@ -7,6 +7,7 @@
 class UCapsuleComponent;
 class UStaticMeshComponent;
 class UProjectileMovementComponent;
+class USceneComponent;
 
 UCLASS()
 class BULLETRAIN_API ABR_Projectile : public AActor
@@ -26,6 +27,9 @@ protected:
 
 private:
 	//VARIABLES
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	USceneComponent *Projectile;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UCapsuleComponent *CapsuleCollider;
 
