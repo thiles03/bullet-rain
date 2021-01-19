@@ -34,5 +34,11 @@ void UBR_CombatHandler_Player::FireLeft()
 
 void UBR_CombatHandler_Player::FireRight()
 {
-
+		if (ProjectileClass)
+	{
+		const USkeletalMeshSocket *Muzzle = Cast<ACharacter>(GetOwner())->GetMesh()->GetSocketByName("Muzzle_01");
+		FVector SpawnLocation = Muzzle->GetSocketLocalTransform().GetLocation();
+		FRotator SpawnRotation = Muzzle->GetSocketLocalTransform().GetRotation().Rotator();
+		ABR_Projectile *ProjectileTemp = GetWorld()->SpawnActor<ABR_Projectile>(ProjectileClass, SpawnLocation, SpawnRotation);
+	}
 }

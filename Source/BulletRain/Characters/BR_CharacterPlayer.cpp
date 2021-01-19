@@ -1,5 +1,6 @@
 #include "BR_CharacterPlayer.h"
 #include "BulletRain/Components/BR_CombatHandler_Player.h"
+#include "BulletRain/BR_Enums.h"
 #include "Kismet/KismetMathLibrary.h"
 
 //Constructor
@@ -37,8 +38,9 @@ void ABR_CharacterPlayer::SetupPlayerInputComponent(UInputComponent *PlayerInput
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 
 	// Combat
-	PlayerInputComponent->BindAction("FireRight", IE_Pressed, this, &ABR_CharacterPlayer::Fire);
-	PlayerInputComponent->BindAction("FireLeft", IE_Pressed, this, &ABR_CharacterPlayer::Fire);
+	DECLARE_DELEGATE_OneParam(FCustomInputDelegate, const EPistol);
+	PlayerInputComponent->BindAction<FCustomInputDelegate>("FireRight", IE_Pressed, this, &ABR_CharacterPlayer::Fire, EPistol::RIGHT);
+	PlayerInputComponent->BindAction<FCustomInputDelegate>("FireLeft", IE_Pressed, this, &ABR_CharacterPlayer::Fire, EPistol::LEFT);
 }
 
 void ABR_CharacterPlayer::LookRight(float AxisValue) 
@@ -63,8 +65,9 @@ void ABR_CharacterPlayer::MoveRight(float AxisValue)
 	AddMovementInput(Direction, AxisValue);
 }
 
-void ABR_CharacterPlayer::Fire() 
+void ABR_CharacterPlayer::Fire(EPistol Pistol) 
 {
-	//TODO
+	if (Pistol == EPistol::LEFT) {UE_LOG(LogTemp, Warning, TEXT("Left"));}
+	if (Pistol == EPistol::RIGHT) {UE_LOG(LogTemp, Warning, TEXT("right"));}
 }
 

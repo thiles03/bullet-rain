@@ -35,7 +35,7 @@ private:
 	void MoveRight(float AxisValue);
 
 	//Combat
-	void Fire();
+	void Fire(EPistol Pistol);
 
 	//VARIABLES
 	UPROPERTY(EditAnywhere, Category = "Components", meta = (AllowPrivateAccess = "true"))
