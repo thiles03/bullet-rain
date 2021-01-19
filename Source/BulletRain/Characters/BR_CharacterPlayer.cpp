@@ -11,7 +11,7 @@ ABR_CharacterPlayer::ABR_CharacterPlayer()
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	CombatHandler = CreateDefaultSubobject<UBR_CombatHandler_Player>(TEXT("Combat Handler"));
 
-	Camera->SetupAttachment(Cast<ACharacter>(GetOwner())->GetMesh());
+	// TODO - camera attachment
 }
 
 //Called every frame
