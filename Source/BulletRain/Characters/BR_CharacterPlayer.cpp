@@ -1,5 +1,6 @@
 #include "BR_CharacterPlayer.h"
 #include "BulletRain/Components/BR_CombatHandler_Player.h"
+#include "Camera/CameraComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 
 //Constructor
@@ -7,7 +8,10 @@ ABR_CharacterPlayer::ABR_CharacterPlayer()
 {
     PrimaryActorTick.bCanEverTick = true; // Set this character to call Tick() every frame.
 
+	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	CombatHandler = CreateDefaultSubobject<UBR_CombatHandler_Player>(TEXT("Combat Handler"));
+
+	Camera->SetupAttachment(Cast<ACharacter>(GetOwner())->GetMesh());
 }
 
 //Called every frame
@@ -42,28 +46,33 @@ void ABR_CharacterPlayer::SetupPlayerInputComponent(UInputComponent *PlayerInput
 	PlayerInputComponent->BindAction<FCustomInputDelegate>("FireLeft", IE_Pressed, this, &ABR_CharacterPlayer::Fire, EPistol::LEFT);
 }
 
+// Look right/left using gamepad
 void ABR_CharacterPlayer::LookRight(float AxisValue) 
 {
     AddControllerYawInput(RotationRate * AxisValue * GetWorld()->GetDeltaSeconds());
 }
 
+// Look up/down using gamepad
 void ABR_CharacterPlayer::LookUp(float AxisValue) 
 {
     AddControllerPitchInput(RotationRate * AxisValue * GetWorld()->GetDeltaSeconds());
 }
 
+// Move forward/backwards
 void ABR_CharacterPlayer::MoveForward(float AxisValue) 
 {
     FVector Direction = UKismetMathLibrary::GetForwardVector(FRotator(0.0f, GetControlRotation().Yaw, 0.0f));
 	AddMovementInput(Direction, AxisValue);
 }
 
+// Move left/right
 void ABR_CharacterPlayer::MoveRight(float AxisValue) 
 {
     FVector Direction = UKismetMathLibrary::GetRightVector(FRotator(0.0f, GetControlRotation().Yaw, 0.0f));
 	AddMovementInput(Direction, AxisValue);
 }
 
+// Call to CombatHandler to fire pistols
 void ABR_CharacterPlayer::Fire(EPistol Pistol) 
 {
 	if (Pistol == EPistol::LEFT) {CombatHandler->Fire(EPistol::LEFT);}
