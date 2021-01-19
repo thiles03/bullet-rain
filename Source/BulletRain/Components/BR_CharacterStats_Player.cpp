@@ -50,6 +50,11 @@ void UBR_CharacterStats_Player::EnableRegen()
 	CanRegen = true;
 }
 
+void UBR_CharacterStats_Player::Die()
+{
+	
+}
+
 // Suspend health regen and spawn damage vignette
 void UBR_CharacterStats_Player::Damaged() 
 {

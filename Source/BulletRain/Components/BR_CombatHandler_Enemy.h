@@ -22,7 +22,8 @@ protected:
 	virtual void BeginPlay() override;
 
 private:	
-
+	//FUNCTIONS
+	void Attack();
 
 		
 };

@@ -42,4 +42,5 @@ private:
 	//FUNCTIONS
 	void Damaged();
 	void EnableRegen();
+	virtual void Die() override;
 };

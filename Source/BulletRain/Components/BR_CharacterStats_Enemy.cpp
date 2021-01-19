@@ -16,10 +16,14 @@ void UBR_CharacterStats_Enemy::BeginPlay()
 	
 }
 
-
 // Called every frame
 void UBR_CharacterStats_Enemy::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
+
+void UBR_CharacterStats_Enemy::Die()
+{
+	
+}

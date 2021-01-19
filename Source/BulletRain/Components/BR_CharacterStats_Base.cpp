@@ -15,6 +15,7 @@ void UBR_CharacterStats_Base::BeginPlay()
 	CurrentHealth = MaxHealth;
 }
 
+
 // Called every frame
 void UBR_CharacterStats_Base::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
@@ -71,4 +72,9 @@ void UBR_CharacterStats_Base::TakeUnblockableDamage(float Damage, float Unblocka
 {
 	TakeDamage(Damage);
 	CurrentHealth = (FMath::Clamp((CurrentHealth - UnblockableDamage), 0.0f, MaxHealth));
+}
+
+void UBR_CharacterStats_Base::Die() 
+{
+	
 }

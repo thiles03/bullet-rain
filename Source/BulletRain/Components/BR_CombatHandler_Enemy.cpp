@@ -7,7 +7,6 @@ UBR_CombatHandler_Enemy::UBR_CombatHandler_Enemy()
 
 }
 
-
 // Called when the game starts
 void UBR_CombatHandler_Enemy::BeginPlay()
 {
@@ -16,10 +15,13 @@ void UBR_CombatHandler_Enemy::BeginPlay()
 	
 }
 
-
 // Called every frame
 void UBR_CombatHandler_Enemy::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
+void UBR_CombatHandler_Enemy::Attack() 
+{
+	
+}

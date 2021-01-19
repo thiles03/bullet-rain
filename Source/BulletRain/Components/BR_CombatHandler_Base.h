@@ -18,6 +18,14 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 protected:
+	//VARIABLES
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	float AttackDamage = 5.f;
+
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	float AttackSpeed = 5.f;
+
+	//FUNCTIONS
 	// Called when the game starts
 	virtual void BeginPlay() override;
 

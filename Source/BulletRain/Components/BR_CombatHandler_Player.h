@@ -4,6 +4,7 @@
 #include "BR_CombatHandler_Base.h"
 #include "BR_CombatHandler_Player.generated.h"
 
+class ABR_Projectile;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BULLETRAIN_API UBR_CombatHandler_Player : public UBR_CombatHandler_Base
@@ -21,6 +22,13 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-private:	
+private:
+	//VARIABLES
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<ABR_Projectile> ProjectileClass;
 	
+	//FUNCTIONS
+	// Fire weapons
+	void FireLeft();
+	void FireRight();
 };
