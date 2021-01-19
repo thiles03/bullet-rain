@@ -6,6 +6,7 @@
 #include "BR_CharacterPlayer.generated.h"
 
 class UBR_CombatHandler_Player;
+class UCameraComponent;
 
 UCLASS()
 class BULLETRAIN_API ABR_CharacterPlayer : public ABR_CharacterBase
