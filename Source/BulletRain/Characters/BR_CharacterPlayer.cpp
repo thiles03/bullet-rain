@@ -1,10 +1,13 @@
 #include "BR_CharacterPlayer.h"
+#include "BulletRain/Components/BR_CombatHandler_Player.h"
 #include "Kismet/KismetMathLibrary.h"
 
 //Constructor
 ABR_CharacterPlayer::ABR_CharacterPlayer() 
 {
     PrimaryActorTick.bCanEverTick = true; // Set this character to call Tick() every frame.
+
+	CombatHandler = CreateDefaultSubobject<UBR_CombatHandler_Player>(TEXT("Combat Handler"));
 }
 
 //Called every frame

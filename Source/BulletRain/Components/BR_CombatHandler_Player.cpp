@@ -1,5 +1,7 @@
 #include "BR_CombatHandler_Player.h"
 #include "BulletRain/Actors/BR_Projectile.h"
+#include "Engine/SkeletalMeshSocket.h"
+#include "GameFramework/Character.h"
 
 // Constructor
 UBR_CombatHandler_Player::UBR_CombatHandler_Player()
@@ -20,8 +22,14 @@ void UBR_CombatHandler_Player::TickComponent(float DeltaTime, ELevelTick TickTyp
 }
 
 void UBR_CombatHandler_Player::FireLeft()
-{
-	
+{	
+	if (ProjectileClass)
+	{
+		const USkeletalMeshSocket *Muzzle = Cast<ACharacter>(GetOwner())->GetMesh()->GetSocketByName("Muzzle_02");
+		FVector SpawnLocation = Muzzle->GetSocketLocalTransform().GetLocation();
+		FRotator SpawnRotation = Muzzle->GetSocketLocalTransform().GetRotation().Rotator();
+		ABR_Projectile *ProjectileTemp = GetWorld()->SpawnActor<ABR_Projectile>(ProjectileClass, SpawnLocation, SpawnRotation);
+	}
 }
 
 void UBR_CombatHandler_Player::FireRight()

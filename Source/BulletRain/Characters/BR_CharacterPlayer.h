@@ -4,6 +4,8 @@
 #include "BR_CharacterBase.h"
 #include "BR_CharacterPlayer.generated.h"
 
+class UBR_CombatHandler_Player;
+
 UCLASS()
 class BULLETRAIN_API ABR_CharacterPlayer : public ABR_CharacterBase
 {
@@ -36,6 +38,9 @@ private:
 	void Fire();
 
 	//VARIABLES
+	UPROPERTY(EditAnywhere, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UBR_CombatHandler_Player *CombatHandler;
+
 	UPROPERTY(EditAnywhere, Category = "Movement", meta = (AllowPrivateAccess = "true"))
 	float RotationRate = 50.f;
 };
