@@ -21,24 +21,18 @@ void UBR_CombatHandler_Player::TickComponent(float DeltaTime, ELevelTick TickTyp
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
-void UBR_CombatHandler_Player::FireLeft()
+void UBR_CombatHandler_Player::Fire(EPistol Pistol)
 {	
-	if (ProjectileClass)
+	const USkeletalMeshSocket *Muzzle  = Cast<ACharacter>(GetOwner())->GetMesh()->GetSocketByName("Muzzle_Left");
+	UE_LOG(LogTemp, Warning, TEXT("1"));
+	if (Pistol == EPistol::RIGHT)
 	{
-		const USkeletalMeshSocket *Muzzle = Cast<ACharacter>(GetOwner())->GetMesh()->GetSocketByName("Muzzle_02");
-		FVector SpawnLocation = Muzzle->GetSocketLocalTransform().GetLocation();
-		FRotator SpawnRotation = Muzzle->GetSocketLocalTransform().GetRotation().Rotator();
-		ABR_Projectile *ProjectileTemp = GetWorld()->SpawnActor<ABR_Projectile>(ProjectileClass, SpawnLocation, SpawnRotation);
+		Muzzle  = Cast<ACharacter>(GetOwner())->GetMesh()->GetSocketByName("Muzzle_Right");
+		UE_LOG(LogTemp, Warning, TEXT("2"));
 	}
-}
 
-void UBR_CombatHandler_Player::FireRight()
-{
-		if (ProjectileClass)
-	{
-		const USkeletalMeshSocket *Muzzle = Cast<ACharacter>(GetOwner())->GetMesh()->GetSocketByName("Muzzle_01");
-		FVector SpawnLocation = Muzzle->GetSocketLocalTransform().GetLocation();
-		FRotator SpawnRotation = Muzzle->GetSocketLocalTransform().GetRotation().Rotator();
-		ABR_Projectile *ProjectileTemp = GetWorld()->SpawnActor<ABR_Projectile>(ProjectileClass, SpawnLocation, SpawnRotation);
-	}
+	// if (!ProjectileClass) {return;}
+	// FVector SpawnLocation = Muzzle->GetSocketLocalTransform().GetLocation();
+	// FRotator SpawnRotation = Muzzle->GetSocketLocalTransform().GetRotation().Rotator();
+	// ABR_Projectile *ProjectileTemp = GetWorld()->SpawnActor<ABR_Projectile>(ProjectileClass, SpawnLocation, SpawnRotation);
 }

@@ -1,6 +1,5 @@
 #include "BR_CharacterPlayer.h"
 #include "BulletRain/Components/BR_CombatHandler_Player.h"
-#include "BulletRain/BR_Enums.h"
 #include "Kismet/KismetMathLibrary.h"
 
 //Constructor
@@ -67,7 +66,7 @@ void ABR_CharacterPlayer::MoveRight(float AxisValue)
 
 void ABR_CharacterPlayer::Fire(EPistol Pistol) 
 {
-	if (Pistol == EPistol::LEFT) {UE_LOG(LogTemp, Warning, TEXT("Left"));}
-	if (Pistol == EPistol::RIGHT) {UE_LOG(LogTemp, Warning, TEXT("right"));}
+	if (Pistol == EPistol::LEFT) {CombatHandler->Fire(EPistol::LEFT);}
+	if (Pistol == EPistol::RIGHT) {CombatHandler->Fire(EPistol::RIGHT);}
 }
 

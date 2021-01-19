@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "BulletRain/BR_Enums.h"
 #include "BR_CharacterBase.h"
 #include "BR_CharacterPlayer.generated.h"
 
