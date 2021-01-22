@@ -19,9 +19,17 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	
 protected:
+	//VARIABLES
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	float MaxSpeed = 600.f;
+
 	//FUNCTIONS
+	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	//Set movement speed
+	void SetSpeed(float Speed);
 
 private:	
 	//FUNCTIONS

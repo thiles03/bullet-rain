@@ -28,6 +28,14 @@ protected:
 
 private:
 	//VARIABLES
+	// Bullet
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<ABR_Projectile> ProjectileClass;
+
+	UPROPERTY(EditAnywhere)
+	float Range = 1300.f;
+
+	//FUNCTIONS
+	// Locate crosshair vanishing point
+	FVector GetAimPoint() const;
 };

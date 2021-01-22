@@ -3,11 +3,17 @@
 #include "Components/SceneComponent.h"
 #include "Engine/SkeletalMeshSocket.h"
 #include "GameFramework/Character.h"
+#include "Engine/World.h"
+#include "Kismet/KismetMathLibrary.h"
+
+
+#include "DrawDebugHelpers.h"
 
 // Constructor
 UBR_CombatHandler_Player::UBR_CombatHandler_Player()
 {
 	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bStartWithTickEnabled = true;
 }
 
 // Called when the game starts
@@ -22,6 +28,7 @@ void UBR_CombatHandler_Player::TickComponent(float DeltaTime, ELevelTick TickTyp
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
+// Fire left/right pistol depending on mouse click
 void UBR_CombatHandler_Player::Fire(EPistol Pistol)
 {	
 	FName Socket = "Muzzle_Left";
@@ -31,6 +38,23 @@ void UBR_CombatHandler_Player::Fire(EPistol Pistol)
 	}
 
 	if (!ProjectileClass) {return;}
-	FTransform SpawnTransform = Cast<ACharacter>(GetOwner())->GetMesh()->GetSocketTransform(Socket);
-	ABR_Projectile *ProjectileTemp = GetWorld()->SpawnActor<ABR_Projectile>(ProjectileClass, SpawnTransform);
+	FVector SpawnLocation = Cast<ACharacter>(GetOwner())->GetMesh()->GetSocketTransform(Socket).GetLocation(); // Muzzle location
+	FRotator SpawnRotation = UKismetMathLibrary::FindLookAtRotation(SpawnLocation, GetAimPoint());	// Angle from muzzle towards player aim reticle
+	ABR_Projectile *ProjectileTemp = GetWorld()->SpawnActor<ABR_Projectile>(ProjectileClass, SpawnLocation, SpawnRotation);
+}
+
+// Returns the point under the crosshair that is equals to the range distance from the player
+FVector UBR_CombatHandler_Player::GetAimPoint() const
+{
+	FVector PlayerViewpointLocation;
+	FRotator PlayerViewpointRotation;
+
+		GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(
+		OUT PlayerViewpointLocation,
+		OUT PlayerViewpointRotation
+	);
+
+	FVector LineTraceEnd = PlayerViewpointLocation + FVector(PlayerViewpointRotation.Vector() * Range);
+
+	return LineTraceEnd;
 }

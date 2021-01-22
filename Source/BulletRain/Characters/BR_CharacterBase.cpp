@@ -1,4 +1,5 @@
-#include "BR_CharacterBase.h" 
+#include "BR_CharacterBase.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Constructor
 ABR_CharacterBase::ABR_CharacterBase()
@@ -10,6 +11,8 @@ ABR_CharacterBase::ABR_CharacterBase()
 void ABR_CharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	GetCharacterMovement()->MaxWalkSpeed = MaxSpeed;
 }
 
 // Called every frame
@@ -21,5 +24,10 @@ void ABR_CharacterBase::Tick(float DeltaTime)
 void ABR_CharacterBase::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+}
+
+void ABR_CharacterBase::SetSpeed(float Speed) 
+{
+	GetCharacterMovement()->MaxWalkSpeed = Speed;
 }
 

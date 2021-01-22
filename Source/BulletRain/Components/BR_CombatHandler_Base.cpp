@@ -4,7 +4,6 @@
 UBR_CombatHandler_Base::UBR_CombatHandler_Base()
 {
 	PrimaryComponentTick.bCanEverTick = true;
-
 }
 
 
@@ -12,8 +11,6 @@ UBR_CombatHandler_Base::UBR_CombatHandler_Base()
 void UBR_CombatHandler_Base::BeginPlay()
 {
 	Super::BeginPlay();
-
-	
 }
 
 
