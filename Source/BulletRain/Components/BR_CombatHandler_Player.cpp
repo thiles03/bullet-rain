@@ -22,6 +22,8 @@ UBR_CombatHandler_Player::UBR_CombatHandler_Player()
 void UBR_CombatHandler_Player::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	AmmoLeft = MaxMagAmmo, AmmoRight = MaxMagAmmo;
 }
 
 // Called every frame
@@ -33,10 +35,16 @@ void UBR_CombatHandler_Player::TickComponent(float DeltaTime, ELevelTick TickTyp
 // Fire left/right pistol depending on mouse click
 void UBR_CombatHandler_Player::Fire(EPistol Pistol)
 {	
-	FName Socket = "Muzzle_Left";
+	FName Socket;
 	if (Pistol == EPistol::RIGHT)
 	{
 		Socket = "Muzzle_Right";
+		AmmoRight--;
+	}
+	if (Pistol == EPistol::LEFT)
+	{
+		Socket = "Muzzle_Left";
+		AmmoLeft--;
 	}
 
 	// Spawn projectile
@@ -47,6 +55,46 @@ void UBR_CombatHandler_Player::Fire(EPistol Pistol)
 
 	// Spawn VFX and SFX
 	UGameplayStatics::SpawnEmitterAttached(MuzzleFlash, Cast<ACharacter>(GetOwner())->GetMesh(), Socket);
+}
+
+// Reload left/right pistol
+void UBR_CombatHandler_Player::Reload(EPistol Pistol) 
+{
+		if (Pistol == EPistol::RIGHT)
+	{
+		CurrentCarriedAmmo -= (MaxMagAmmo - AmmoRight);
+		AmmoRight = MaxMagAmmo;
+	}
+	if (Pistol == EPistol::LEFT)
+	{
+		CurrentCarriedAmmo -= (MaxMagAmmo - AmmoLeft);
+		AmmoLeft = MaxMagAmmo;
+	}
+}
+
+// Get te current ammo remaining for left/right pistol
+int UBR_CombatHandler_Player::GetCurrentAmmo(EPistol Pistol) 
+{
+	if (Pistol == EPistol::RIGHT)
+	{
+		return AmmoRight;
+	}
+	if (Pistol == EPistol::LEFT)
+	{
+		return AmmoLeft;
+	}
+	return 0;
+}
+
+// Set the maximum ammo carrying capacity
+void UBR_CombatHandler_Player::SetAmmoCapacity(int Capacity) 
+{
+	MaxCarriedAmmo = Capacity;
+}
+
+void UBR_CombatHandler_Player::SetMagCapacity(int Capacity) 
+{
+	MaxMagAmmo = Capacity;
 }
 
 // Returns the point under the crosshair that is equals to the range distance from the player

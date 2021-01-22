@@ -19,8 +19,16 @@ public:
 	//FUNCTIONS
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	// Fire weapons
+	// Weapons
 	void Fire(EPistol Pistol);
+	void Reload(EPistol Pistol);
+	// Ammo
+	UFUNCTION(BlueprintCallable)
+	int GetCurrentAmmo(EPistol Pistol);
+	UFUNCTION(BlueprintCallable)
+	void SetAmmoCapacity(int Capacity);
+	UFUNCTION(BlueprintCallable)
+	void SetMagCapacity(int Capacity);
 
 protected:
 	// Called when the game starts
@@ -28,11 +36,21 @@ protected:
 
 private:
 	//VARIABLES
-	//Projectile
+	//Ammunition properties
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<ABR_Projectile> ProjectileClass;
 	UPROPERTY(EditAnywhere)
 	float Range = 1300.f;
+	UPROPERTY(EditAnywhere)
+	int MaxMagAmmo = 17;
+	UPROPERTY(EditAnywhere)
+	int MaxCarriedAmmo = 100;
+	UPROPERTY(VisibleAnywhere)
+	int CurrentCarriedAmmo = 40;
+	UPROPERTY(VisibleAnywhere)
+	int AmmoLeft;
+	UPROPERTY(VisibleAnywhere)
+	int AmmoRight;
 	//Visuals
 	UPROPERTY(EditAnywhere)
 	UParticleSystem *MuzzleFlash;
