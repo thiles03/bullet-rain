@@ -58,7 +58,7 @@ void ABR_CharacterPlayer::Aim()
 	IsAiming = true;
 	ABR_CharacterBase::SetSpeed(AimMoveSpeed);
 	FOVTimeline.Play();
-	UGameplayStatics::SetGlobalTimeDilation(GetWorld(), .4f);
+	UGameplayStatics::SetGlobalTimeDilation(GetWorld(), .5f);
 }
 
 

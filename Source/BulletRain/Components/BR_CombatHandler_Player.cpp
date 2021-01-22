@@ -5,6 +5,8 @@
 #include "GameFramework/Character.h"
 #include "Engine/World.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Kismet/GameplayStatics.h"
+
 
 
 #include "DrawDebugHelpers.h"
@@ -37,10 +39,14 @@ void UBR_CombatHandler_Player::Fire(EPistol Pistol)
 		Socket = "Muzzle_Right";
 	}
 
+	// Spawn projectile
 	if (!ProjectileClass) {return;}
 	FVector SpawnLocation = Cast<ACharacter>(GetOwner())->GetMesh()->GetSocketTransform(Socket).GetLocation(); // Muzzle location
 	FRotator SpawnRotation = UKismetMathLibrary::FindLookAtRotation(SpawnLocation, GetAimPoint());	// Angle from muzzle towards player aim reticle
 	ABR_Projectile *ProjectileTemp = GetWorld()->SpawnActor<ABR_Projectile>(ProjectileClass, SpawnLocation, SpawnRotation);
+
+	// Spawn VFX and SFX
+	UGameplayStatics::SpawnEmitterAttached(MuzzleFlash, Cast<ACharacter>(GetOwner())->GetMesh(), Socket);
 }
 
 // Returns the point under the crosshair that is equals to the range distance from the player

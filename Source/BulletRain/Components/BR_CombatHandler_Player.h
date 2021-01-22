@@ -16,9 +16,9 @@ public:
 	//CONSTRUCTOR
 	UBR_CombatHandler_Player();
 
+	//FUNCTIONS
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
 	// Fire weapons
 	void Fire(EPistol Pistol);
 
@@ -28,14 +28,23 @@ protected:
 
 private:
 	//VARIABLES
-	// Bullet
+	//Projectile
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<ABR_Projectile> ProjectileClass;
-
 	UPROPERTY(EditAnywhere)
 	float Range = 1300.f;
+	//Visuals
+	UPROPERTY(EditAnywhere)
+	UParticleSystem *MuzzleFlash;
+	UPROPERTY(EditAnywhere)
+	UParticleSystem *ImpactEffect;
+	//Sounds
+	UPROPERTY(EditAnywhere)
+	USoundBase *MuzzleSound;
+	UPROPERTY(EditAnywhere)
+	USoundBase *ImpactSound;
 
 	//FUNCTIONS
-	// Locate crosshair vanishing point
+	//Locate crosshair vanishing point
 	FVector GetAimPoint() const;
 };
