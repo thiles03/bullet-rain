@@ -1,6 +1,7 @@
 #include "BR_CharacterPlayer.h"
 #include "BulletRain/Components/BR_CombatHandler_Player.h"
 #include "Camera/CameraComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 
 //Constructor
@@ -57,6 +58,7 @@ void ABR_CharacterPlayer::Aim()
 	IsAiming = true;
 	ABR_CharacterBase::SetSpeed(AimMoveSpeed);
 	FOVTimeline.Play();
+	UGameplayStatics::SetGlobalTimeDilation(GetWorld(), .4f);
 }
 
 
@@ -66,6 +68,7 @@ void ABR_CharacterPlayer::AimReset()
 	IsAiming = false;
 	ABR_CharacterBase::SetSpeed(MaxSpeed);
 	FOVTimeline.Reverse();
+	UGameplayStatics::SetGlobalTimeDilation(GetWorld(), 1.f);
 }
 
 // Call to CombatHandler to fire pistols
