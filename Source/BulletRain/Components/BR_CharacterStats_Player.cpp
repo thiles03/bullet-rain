@@ -6,9 +6,19 @@
 UBR_CharacterStats_Player::UBR_CharacterStats_Player()
 {
 	PrimaryComponentTick.bCanEverTick = true;
-
+	RemainingBulletTime = MaxBulletTime;
 }
 
+// Get remaining bullet time as percentage
+float UBR_CharacterStats_Player::GetRemainingBulletTime() const
+{
+	return RemainingBulletTime / MaxBulletTime;
+}
+
+void UBR_CharacterStats_Player::SetMaxBulletTime(float Time) 
+{
+	MaxBulletTime = Time;
+}
 
 // Called when the game starts
 void UBR_CharacterStats_Player::BeginPlay()
@@ -16,6 +26,7 @@ void UBR_CharacterStats_Player::BeginPlay()
 	Super::BeginPlay();
 
 	PlayerController = Cast<ABR_PlayerController>(GetWorld()->GetFirstPlayerController());
+
 }
 
 // Called every frame

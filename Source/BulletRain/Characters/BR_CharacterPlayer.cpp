@@ -4,7 +4,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 
-//Constructor
+// Constructor
 ABR_CharacterPlayer::ABR_CharacterPlayer() 
 {
     PrimaryActorTick.bCanEverTick = true; // Set this character to call Tick() every frame.
@@ -15,7 +15,7 @@ ABR_CharacterPlayer::ABR_CharacterPlayer()
 	Camera->SetupAttachment(GetMesh(), TEXT("spine_02"));
 }
 
-//Called every frame
+// Called every frame
 void ABR_CharacterPlayer::Tick(float DeltaTime) 
 {
     Super::Tick(DeltaTime);

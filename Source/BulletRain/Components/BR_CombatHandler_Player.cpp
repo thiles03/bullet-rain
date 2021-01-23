@@ -72,13 +72,13 @@ void UBR_CombatHandler_Player::Reload(EPistol Pistol)
 	}
 }
 
-int UBR_CombatHandler_Player::GetCarriedAmmo() 
+int UBR_CombatHandler_Player::GetCarriedAmmo() const
 {
 	return CurrentCarriedAmmo;
 }
 
 // Get te current ammo remaining for left/right pistol
-int UBR_CombatHandler_Player::GetWeaponAmmo(EPistol Pistol) 
+int UBR_CombatHandler_Player::GetWeaponAmmo(EPistol Pistol) const
 {
 	if (Pistol == EPistol::RIGHT)
 	{

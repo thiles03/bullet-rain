@@ -15,6 +15,12 @@ public:
 	//CONSTRUCTOR
 	UBR_CharacterStats_Player();
 
+	//GETTERS
+	float GetRemainingBulletTime() const;
+
+	//SETTERS
+	void SetMaxBulletTime(float Time);
+
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
@@ -35,8 +41,12 @@ private:
 	float RegenDelay = 5.f;
 	bool CanRegen = true;
 	FTimerHandle RegenResetTimer;
-
-	//Player controller
+	// Slow motion time
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	float MaxBulletTime = 5.f;
+	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
+	float RemainingBulletTime;
+	// Player controller
 	ABR_PlayerController* PlayerController;
 
 	//FUNCTIONS
