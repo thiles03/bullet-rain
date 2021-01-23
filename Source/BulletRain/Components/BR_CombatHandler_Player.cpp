@@ -78,7 +78,7 @@ int UBR_CombatHandler_Player::GetCarriedAmmo()
 }
 
 // Get te current ammo remaining for left/right pistol
-int UBR_CombatHandler_Player::GetCurrentAmmo(EPistol Pistol) 
+int UBR_CombatHandler_Player::GetWeaponAmmo(EPistol Pistol) 
 {
 	if (Pistol == EPistol::RIGHT)
 	{
