@@ -22,15 +22,18 @@ public:
 	// Weapons
 	void Fire(EPistol Pistol);
 	void Reload(EPistol Pistol);
-	// Ammo
+	//GETTERS
 	UFUNCTION(BlueprintCallable)
 	int GetWeaponAmmo(EPistol Pistol) const;
 	UFUNCTION(BlueprintCallable)
 	int GetCarriedAmmo() const;
+	//SETTERS
 	UFUNCTION(BlueprintCallable)
-	void SetAmmoCapacity(int Capacity);
+	void SetMaxCarriedAmmo(int Capacity);
 	UFUNCTION(BlueprintCallable)
-	void SetMagCapacity(int Capacity);
+	void SetCurrentCarriedAmmo(int Amount);
+	UFUNCTION(BlueprintCallable)
+	void SetMaxMagAmmo(int Capacity);
 
 protected:
 	// Called when the game starts

@@ -4,7 +4,9 @@
 #include "GameFramework/Actor.h"
 #include "BR_PickUp_Base.generated.h"
 
+class ABR_CharacterPlayer;
 class UCapsuleComponent;
+class UStaticMeshComponent;
 
 UCLASS()
 class BULLETRAIN_API ABR_PickUp_Base : public AActor
@@ -17,7 +19,14 @@ public:
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	// Overlap event
+	UFUNCTION() 
+	virtual void OnBeginOverlap(UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
+
 protected:
+	//VARIABLES
+	ABR_CharacterPlayer* Player;
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 

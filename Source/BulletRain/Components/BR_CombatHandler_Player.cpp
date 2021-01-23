@@ -110,12 +110,17 @@ int UBR_CombatHandler_Player::GetWeaponAmmo(EPistol Pistol) const
 }
 
 // Set the maximum ammo carrying capacity
-void UBR_CombatHandler_Player::SetAmmoCapacity(int Capacity) 
+void UBR_CombatHandler_Player::SetMaxCarriedAmmo(int Capacity) 
 {
 	MaxCarriedAmmo = Capacity;
 }
 
-void UBR_CombatHandler_Player::SetMagCapacity(int Capacity) 
+void UBR_CombatHandler_Player::SetCurrentCarriedAmmo(int Amount) 
+{
+	CurrentCarriedAmmo = FMath::Clamp((CurrentCarriedAmmo + Amount), 0, MaxCarriedAmmo);
+}
+
+void UBR_CombatHandler_Player::SetMaxMagAmmo(int Capacity) 
 {
 	MaxMagAmmo = Capacity;
 }
