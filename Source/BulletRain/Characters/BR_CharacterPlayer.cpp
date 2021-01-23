@@ -1,8 +1,8 @@
 #include "BR_CharacterPlayer.h"
 #include "BulletRain/Components/BR_CombatHandler_Player.h"
+#include "BulletRain/Components/BR_CharacterStats_Player.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
-#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 
 // Constructor
@@ -12,6 +12,7 @@ ABR_CharacterPlayer::ABR_CharacterPlayer()
 
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	CombatHandler = CreateDefaultSubobject<UBR_CombatHandler_Player>(TEXT("Combat Handler"));
+	PlayerStats = CreateDefaultSubobject<UBR_CharacterStats_Player>(TEXT("Player Stats"));
 
 	Camera->SetupAttachment(GetMesh(), TEXT("spine_02"));
 }
@@ -56,6 +57,7 @@ void ABR_CharacterPlayer::SetupPlayerInputComponent(UInputComponent *PlayerInput
 	PlayerInputComponent->BindAction<FCustomInputDelegate>("ReloadLeft", IE_Pressed, this, &ABR_CharacterPlayer::Reload, EPistol::LEFT);
 	PlayerInputComponent->BindAction("Aim", IE_Pressed, this, &ABR_CharacterPlayer::Aim);
 	PlayerInputComponent->BindAction("Aim", IE_Released, this, &ABR_CharacterPlayer::AimReset);
+	PlayerInputComponent->BindAction("BulletTime", IE_Pressed, this, &ABR_CharacterPlayer::BulletTime);
 }
 
 bool ABR_CharacterPlayer::GetIsSprinting() const
@@ -69,7 +71,6 @@ void ABR_CharacterPlayer::Aim()
 	IsAiming = true;
 	ABR_CharacterBase::SetSpeed(AimMoveSpeed);
 	FOVTimeline.Play();
-	UGameplayStatics::SetGlobalTimeDilation(GetWorld(), .5f);
 	CurrentRotationRate = AimRotationRate;
 	TurnDampening = .4f;
 }
@@ -81,7 +82,6 @@ void ABR_CharacterPlayer::AimReset()
 	IsAiming = false;
 	ABR_CharacterBase::SetSpeed(MaxSpeed);
 	FOVTimeline.Reverse();
-	UGameplayStatics::SetGlobalTimeDilation(GetWorld(), 1.f);
 	CurrentRotationRate = BaseRotationRate;
 	TurnDampening = 1.f;
 }
@@ -152,6 +152,11 @@ void ABR_CharacterPlayer::ToggleCrouch()
 void ABR_CharacterPlayer::Turn(float AxisValue) 
 {
 	AddControllerYawInput(AxisValue * TurnDampening);
+}
+
+void ABR_CharacterPlayer::BulletTime() 
+{
+	PlayerStats->BulletTime();
 }
 
 // Timeline for aiming zoom

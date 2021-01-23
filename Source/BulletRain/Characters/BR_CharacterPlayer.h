@@ -7,6 +7,7 @@
 #include "BR_CharacterPlayer.generated.h"
 
 class UBR_CombatHandler_Player;
+class UBR_CharacterStats_Player;
 class UCameraComponent;
 
 UCLASS()
@@ -23,6 +24,8 @@ public:
 	UCameraComponent *Camera;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UBR_CombatHandler_Player *CombatHandler;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UBR_CharacterStats_Player *PlayerStats;
 
 	//FUNCTIONS
 	// Called every frame
@@ -85,6 +88,7 @@ private:
 	void Turn(float AxisValue); //Mouse
 
 	//Combat
+	void BulletTime();
 	void Fire(EPistol Pistol);
 	void Reload(EPistol Pistol);
 

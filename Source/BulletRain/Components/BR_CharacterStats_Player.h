@@ -20,16 +20,22 @@ public:
 
 	//SETTERS
 	UFUNCTION(BlueprintCallable)
-	void SetMaxBulletTime(float Time);
+	void SetMaxBulletTime(float TimeValue);
+	UFUNCTION(BlueprintCallable)
+	void UpdateRemainingBulletTime(float TimeValue);
 
 	//GETTERS
 	UFUNCTION(BlueprintCallable)
 	float GetRemainingBulletTime() const;
+	UFUNCTION(BlueprintCallable)
+	bool GetBulletTimeActive() const;
 
 	//FUNCTIONS
 	//Damage handlers
 	virtual void TakeDamage(float Damage) override;
 	virtual void TakeUnblockableDamage(float Damage, float UnblockableDamage) override;
+	//Bullet time handler
+	void BulletTime();
 
 protected:
 	//Called when the game starts
@@ -46,10 +52,13 @@ private:
 	FTimerHandle RegenResetTimer;
 	//Slow motion time
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	float BulletTimeRegenRate = .4f;
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
 	float MaxBulletTime = 5.f;
 	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
 	float RemainingBulletTime;
 	bool CanRegenBulletTime = true;
+	bool IsBulletTimeActive = false;
 	//Player controller
 	ABR_PlayerController* PlayerController;
 
