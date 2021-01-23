@@ -66,6 +66,7 @@ private:
 
 	//Combat
 	void Fire(EPistol Pistol);
+	void Reload(EPistol Pistol);
 
 	//Aiming
 	void Aim();

@@ -48,6 +48,8 @@ void ABR_CharacterPlayer::SetupPlayerInputComponent(UInputComponent *PlayerInput
 	DECLARE_DELEGATE_OneParam(FCustomInputDelegate, const EPistol);
 	PlayerInputComponent->BindAction<FCustomInputDelegate>("FireRight", IE_Pressed, this, &ABR_CharacterPlayer::Fire, EPistol::RIGHT);
 	PlayerInputComponent->BindAction<FCustomInputDelegate>("FireLeft", IE_Pressed, this, &ABR_CharacterPlayer::Fire, EPistol::LEFT);
+	PlayerInputComponent->BindAction<FCustomInputDelegate>("ReloadRight", IE_Pressed, this, &ABR_CharacterPlayer::Reload, EPistol::RIGHT);
+	PlayerInputComponent->BindAction<FCustomInputDelegate>("ReloadLeft", IE_Pressed, this, &ABR_CharacterPlayer::Reload, EPistol::LEFT);
 	PlayerInputComponent->BindAction("Aim", IE_Pressed, this, &ABR_CharacterPlayer::Aim);
 	PlayerInputComponent->BindAction("Aim", IE_Released, this, &ABR_CharacterPlayer::AimReset);
 }
@@ -76,6 +78,12 @@ void ABR_CharacterPlayer::Fire(EPistol Pistol)
 {
 	if (Pistol == EPistol::LEFT) {CombatHandler->Fire(EPistol::LEFT);}
 	if (Pistol == EPistol::RIGHT) {CombatHandler->Fire(EPistol::RIGHT);}
+}
+
+void ABR_CharacterPlayer::Reload(EPistol Pistol) 
+{
+	if (Pistol == EPistol::LEFT) {CombatHandler->Reload(EPistol::LEFT);}
+	if (Pistol == EPistol::RIGHT) {CombatHandler->Reload(EPistol::RIGHT);}
 }
 
 // Look right/left using gamepad

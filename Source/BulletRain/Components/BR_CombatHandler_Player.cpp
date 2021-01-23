@@ -38,11 +38,13 @@ void UBR_CombatHandler_Player::Fire(EPistol Pistol)
 	FName Socket;
 	if (Pistol == EPistol::RIGHT)
 	{
+		if (AmmoRight == 0) return;
 		Socket = "Muzzle_Right";
 		AmmoRight--;
 	}
 	if (Pistol == EPistol::LEFT)
 	{
+		if (AmmoLeft == 0) return;
 		Socket = "Muzzle_Left";
 		AmmoLeft--;
 	}
@@ -54,21 +56,37 @@ void UBR_CombatHandler_Player::Fire(EPistol Pistol)
 	ABR_Projectile *ProjectileTemp = GetWorld()->SpawnActor<ABR_Projectile>(ProjectileClass, SpawnLocation, SpawnRotation);
 
 	// Spawn VFX and SFX
-	UGameplayStatics::SpawnEmitterAttached(MuzzleFlash, Cast<ACharacter>(GetOwner())->GetMesh(), Socket);
+	UGameplayStatics::SpawnEmitterAttached(MuzzleFlash, Cast<ACharacter>(GetOwner())->GetMesh(), Socket, FVector(0.f), FRotator(0.f), FVector(0.5f));
 }
 
 // Reload left/right pistol
 void UBR_CombatHandler_Player::Reload(EPistol Pistol) 
 {
-		if (Pistol == EPistol::RIGHT)
+	if (Pistol == EPistol::RIGHT)
 	{
-		CurrentCarriedAmmo -= (MaxMagAmmo - AmmoRight);
-		AmmoRight = MaxMagAmmo;
+		if (CurrentCarriedAmmo > (MaxMagAmmo - AmmoRight))
+		{
+			CurrentCarriedAmmo -= (MaxMagAmmo - AmmoRight);
+			AmmoRight = MaxMagAmmo;
+		}
+		else
+		{
+			AmmoRight += CurrentCarriedAmmo;
+			CurrentCarriedAmmo = 0;
+		}
 	}
 	if (Pistol == EPistol::LEFT)
 	{
-		CurrentCarriedAmmo -= (MaxMagAmmo - AmmoLeft);
-		AmmoLeft = MaxMagAmmo;
+		if (CurrentCarriedAmmo > (MaxMagAmmo - AmmoLeft))
+		{
+			CurrentCarriedAmmo -= (MaxMagAmmo - AmmoLeft);
+			AmmoLeft = MaxMagAmmo;
+		}
+		else
+		{
+			AmmoLeft += CurrentCarriedAmmo;
+			CurrentCarriedAmmo = 0;
+		}
 	}
 }
 
