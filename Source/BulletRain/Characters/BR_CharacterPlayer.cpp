@@ -40,12 +40,12 @@ void ABR_CharacterPlayer::SetupPlayerInputComponent(UInputComponent *PlayerInput
 	PlayerInputComponent->BindAxis("MoveForward", this, &ABR_CharacterPlayer::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ABR_CharacterPlayer::MoveRight);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
-	PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
+	PlayerInputComponent->BindAxis("Turn", this, &ABR_CharacterPlayer::Turn);
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ABR_CharacterPlayer::LookUp);
 	PlayerInputComponent->BindAxis("LookRightRate", this, &ABR_CharacterPlayer::LookRight);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &ABR_CharacterPlayer::ToggleCrouch);
-		PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &ABR_CharacterPlayer::Sprint);
+	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &ABR_CharacterPlayer::Sprint);
 	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &ABR_CharacterPlayer::SprintReset);
 
 	// Combat
@@ -66,6 +66,7 @@ void ABR_CharacterPlayer::Aim()
 	FOVTimeline.Play();
 	UGameplayStatics::SetGlobalTimeDilation(GetWorld(), .5f);
 	CurrentRotationRate = AimRotationRate;
+	TurnDampening = .4f;
 }
 
 
@@ -77,6 +78,7 @@ void ABR_CharacterPlayer::AimReset()
 	FOVTimeline.Reverse();
 	UGameplayStatics::SetGlobalTimeDilation(GetWorld(), 1.f);
 	CurrentRotationRate = BaseRotationRate;
+	TurnDampening = 1.f;
 }
 
 // Call to CombatHandler to fire pistols
@@ -123,6 +125,7 @@ void ABR_CharacterPlayer::Sprint()
 	ABR_CharacterBase::SetSpeed(SprintSpeed);
 	IsSprinting = true;
 	CurrentRotationRate = SprintRotationRate;
+	TurnDampening = .2f;
 }
 
 void ABR_CharacterPlayer::SprintReset() 
@@ -130,12 +133,18 @@ void ABR_CharacterPlayer::SprintReset()
 	ABR_CharacterBase::SetSpeed(MaxSpeed);
 	IsSprinting = false;
 	CurrentRotationRate = BaseRotationRate;
+	TurnDampening = 1.f;
 }
 
 void ABR_CharacterPlayer::ToggleCrouch() 
 {
 	if(bIsCrouched) UnCrouch();
 	else Crouch();
+}
+
+void ABR_CharacterPlayer::Turn(float AxisValue) 
+{
+	AddControllerYawInput(AxisValue * TurnDampening);
 }
 
 // Timeline for aiming zoom

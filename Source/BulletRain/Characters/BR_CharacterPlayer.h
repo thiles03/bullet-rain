@@ -43,6 +43,8 @@ private:
 	//Movement
 	UPROPERTY(VisibleAnywhere, Category = "Movement", meta = (AllowPrivateAccess = "true"))
 	float CurrentRotationRate;
+	UPROPERTY(VisibleAnywhere, Category = "Movement", meta = (AllowPrivateAccess = "true"))
+	float TurnDampening = 1.f;
 	UPROPERTY(EditAnywhere, Category = "Movement", meta = (AllowPrivateAccess = "true"))
 	float BaseRotationRate = 50.f;
 	UPROPERTY(EditAnywhere, Category = "Movement", meta = (AllowPrivateAccess = "true"))
@@ -77,6 +79,7 @@ private:
 	void Sprint();
 	void SprintReset();
 	void ToggleCrouch();
+	void Turn(float AxisValue); //Mouse
 
 	//Combat
 	void Fire(EPistol Pistol);
