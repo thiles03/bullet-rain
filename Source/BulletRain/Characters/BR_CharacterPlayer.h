@@ -40,8 +40,13 @@ private:
 	UCurveFloat *fCurve;
 
 	//VARIABLES
+	//Movement
 	UPROPERTY(EditAnywhere, Category = "Movement", meta = (AllowPrivateAccess = "true"))
 	float RotationRate = 50.f;
+	UPROPERTY(EditAnywhere, Category = "Movement", meta = (AllowPrivateAccess = "true"))
+	float SprintSpeed = 800.f;
+	UPROPERTY(VisibleAnywhere, Category = "Movement", meta = (AllowPrivateAccess = "true"))
+	bool IsSprinting = false;
 
 	//Aiming
 	FTimeline FOVTimeline;
@@ -63,6 +68,7 @@ private:
 	void LookUp(float AxisValue); //Gamepad
 	void MoveForward(float AxisValue);
 	void MoveRight(float AxisValue);
+	void ToggleCrouch();
 
 	//Combat
 	void Fire(EPistol Pistol);

@@ -1,6 +1,7 @@
 #include "BR_CharacterPlayer.h"
 #include "BulletRain/Components/BR_CombatHandler_Player.h"
 #include "Camera/CameraComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 
@@ -43,6 +44,7 @@ void ABR_CharacterPlayer::SetupPlayerInputComponent(UInputComponent *PlayerInput
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ABR_CharacterPlayer::LookUp);
 	PlayerInputComponent->BindAxis("LookRightRate", this, &ABR_CharacterPlayer::LookRight);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
+	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &ABR_CharacterPlayer::ToggleCrouch);
 
 	// Combat
 	DECLARE_DELEGATE_OneParam(FCustomInputDelegate, const EPistol);
@@ -110,6 +112,12 @@ void ABR_CharacterPlayer::MoveRight(float AxisValue)
 {
     FVector Direction = UKismetMathLibrary::GetRightVector(FRotator(0.0f, GetControlRotation().Yaw, 0.0f));
 	AddMovementInput(Direction, AxisValue);
+}
+
+void ABR_CharacterPlayer::ToggleCrouch() 
+{
+	if(bIsCrouched) UnCrouch();
+	else Crouch();
 }
 
 // Timeline for aiming zoom
