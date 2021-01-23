@@ -24,13 +24,16 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "User Interface", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<UUserWidget> HUDClass;
 	UPROPERTY(EditDefaultsOnly, Category = "User Interface", meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<UUserWidget> CrossHairClass;	
+	UPROPERTY(EditDefaultsOnly, Category = "User Interface", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<UUserWidget> DamageVignetteClass;
 	UPROPERTY(EditDefaultsOnly, Category = "User Interface", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<UUserWidget> WinScreenClass;
 	UPROPERTY(EditDefaultsOnly, Category = "User Interface", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<UUserWidget> LoseScreenClass;
 
-	UUserWidget* CurrentWidget;
+	UUserWidget* HUDWidget;
+	UUserWidget* CrossHairWidget;
 
 	//FUNCTIONS
 };

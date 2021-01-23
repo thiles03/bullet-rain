@@ -6,10 +6,12 @@ void ABR_PlayerController::BeginPlay()
 {
     Super::BeginPlay();
     
-    CurrentWidget = CreateWidget(this, HUDClass);
-    if (CurrentWidget)
+    HUDWidget = CreateWidget(this, HUDClass);
+    CrossHairWidget = CreateWidget(this, CrossHairClass);
+    if (HUDWidget && CrossHairWidget)
     {
-        CurrentWidget->AddToViewport();
+        HUDWidget->AddToViewport();
+        CrossHairWidget->AddToViewport();
     }
 }
 
