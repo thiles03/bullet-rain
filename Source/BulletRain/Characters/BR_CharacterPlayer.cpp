@@ -45,6 +45,8 @@ void ABR_CharacterPlayer::SetupPlayerInputComponent(UInputComponent *PlayerInput
 	PlayerInputComponent->BindAxis("LookRightRate", this, &ABR_CharacterPlayer::LookRight);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &ABR_CharacterPlayer::ToggleCrouch);
+		PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &ABR_CharacterPlayer::Sprint);
+	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &ABR_CharacterPlayer::SprintReset);
 
 	// Combat
 	DECLARE_DELEGATE_OneParam(FCustomInputDelegate, const EPistol);
@@ -63,6 +65,7 @@ void ABR_CharacterPlayer::Aim()
 	ABR_CharacterBase::SetSpeed(AimMoveSpeed);
 	FOVTimeline.Play();
 	UGameplayStatics::SetGlobalTimeDilation(GetWorld(), .5f);
+	CurrentRotationRate = AimRotationRate;
 }
 
 
@@ -73,6 +76,7 @@ void ABR_CharacterPlayer::AimReset()
 	ABR_CharacterBase::SetSpeed(MaxSpeed);
 	FOVTimeline.Reverse();
 	UGameplayStatics::SetGlobalTimeDilation(GetWorld(), 1.f);
+	CurrentRotationRate = BaseRotationRate;
 }
 
 // Call to CombatHandler to fire pistols
@@ -91,13 +95,13 @@ void ABR_CharacterPlayer::Reload(EPistol Pistol)
 // Look right/left using gamepad
 void ABR_CharacterPlayer::LookRight(float AxisValue) 
 {
-    AddControllerYawInput(RotationRate * AxisValue * GetWorld()->GetDeltaSeconds());
+    AddControllerYawInput(CurrentRotationRate * AxisValue * GetWorld()->GetDeltaSeconds());
 }
 
 // Look up/down using gamepad
 void ABR_CharacterPlayer::LookUp(float AxisValue) 
 {
-    AddControllerPitchInput(RotationRate * AxisValue * GetWorld()->GetDeltaSeconds());
+    AddControllerPitchInput(CurrentRotationRate * AxisValue * GetWorld()->GetDeltaSeconds());
 }
 
 // Move forward/backwards
@@ -112,6 +116,20 @@ void ABR_CharacterPlayer::MoveRight(float AxisValue)
 {
     FVector Direction = UKismetMathLibrary::GetRightVector(FRotator(0.0f, GetControlRotation().Yaw, 0.0f));
 	AddMovementInput(Direction, AxisValue);
+}
+
+void ABR_CharacterPlayer::Sprint() 
+{
+	ABR_CharacterBase::SetSpeed(SprintSpeed);
+	IsSprinting = true;
+	CurrentRotationRate = SprintRotationRate;
+}
+
+void ABR_CharacterPlayer::SprintReset() 
+{
+	ABR_CharacterBase::SetSpeed(MaxSpeed);
+	IsSprinting = false;
+	CurrentRotationRate = BaseRotationRate;
 }
 
 void ABR_CharacterPlayer::ToggleCrouch() 

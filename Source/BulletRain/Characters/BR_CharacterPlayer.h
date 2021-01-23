@@ -41,10 +41,16 @@ private:
 
 	//VARIABLES
 	//Movement
+	UPROPERTY(VisibleAnywhere, Category = "Movement", meta = (AllowPrivateAccess = "true"))
+	float CurrentRotationRate;
 	UPROPERTY(EditAnywhere, Category = "Movement", meta = (AllowPrivateAccess = "true"))
-	float RotationRate = 50.f;
+	float BaseRotationRate = 50.f;
 	UPROPERTY(EditAnywhere, Category = "Movement", meta = (AllowPrivateAccess = "true"))
-	float SprintSpeed = 800.f;
+	float AimRotationRate = 30.f;
+	UPROPERTY(EditAnywhere, Category = "Movement", meta = (AllowPrivateAccess = "true"))
+	float SprintRotationRate = 20.f;
+	UPROPERTY(EditAnywhere, Category = "Movement", meta = (AllowPrivateAccess = "true"))
+	float SprintSpeed = 1000.f;
 	UPROPERTY(VisibleAnywhere, Category = "Movement", meta = (AllowPrivateAccess = "true"))
 	bool IsSprinting = false;
 
@@ -68,6 +74,8 @@ private:
 	void LookUp(float AxisValue); //Gamepad
 	void MoveForward(float AxisValue);
 	void MoveRight(float AxisValue);
+	void Sprint();
+	void SprintReset();
 	void ToggleCrouch();
 
 	//Combat
