@@ -58,6 +58,11 @@ void ABR_CharacterPlayer::SetupPlayerInputComponent(UInputComponent *PlayerInput
 	PlayerInputComponent->BindAction("Aim", IE_Released, this, &ABR_CharacterPlayer::AimReset);
 }
 
+bool ABR_CharacterPlayer::GetIsSprinting() 
+{
+	return IsSprinting;
+}
+
 // Aim weapon
 void ABR_CharacterPlayer::Aim()
 {
@@ -84,6 +89,7 @@ void ABR_CharacterPlayer::AimReset()
 // Call to CombatHandler to fire pistols
 void ABR_CharacterPlayer::Fire(EPistol Pistol) 
 {
+	if (IsSprinting) return;
 	if (Pistol == EPistol::LEFT) {CombatHandler->Fire(EPistol::LEFT);}
 	if (Pistol == EPistol::RIGHT) {CombatHandler->Fire(EPistol::RIGHT);}
 }
@@ -122,6 +128,7 @@ void ABR_CharacterPlayer::MoveRight(float AxisValue)
 
 void ABR_CharacterPlayer::Sprint() 
 {
+	if (bIsCrouched) return;
 	ABR_CharacterBase::SetSpeed(SprintSpeed);
 	IsSprinting = true;
 	CurrentRotationRate = SprintRotationRate;
