@@ -92,6 +92,7 @@ void UBR_CharacterStats_Player::BulletTime()
 	}
 	else
 	{
+		PlayerController->CreateSloMoVignette();
 		IsBulletTimeActive = true;
 		UGameplayStatics::SetGlobalTimeDilation(GetWorld(), .5f);
 		CanRegenBulletTime = false;

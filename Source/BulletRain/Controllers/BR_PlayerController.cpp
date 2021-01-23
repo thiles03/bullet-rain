@@ -1,11 +1,10 @@
 #include "BR_PlayerController.h"
 #include "Blueprint/UserWidget.h"
 
-
-void ABR_PlayerController::BeginPlay() 
+void ABR_PlayerController::BeginPlay()
 {
     Super::BeginPlay();
-    
+
     HUDWidget = CreateWidget(this, HUDClass);
     CrossHairWidget = CreateWidget(this, CrossHairClass);
     if (HUDWidget && CrossHairWidget)
@@ -15,11 +14,20 @@ void ABR_PlayerController::BeginPlay()
     }
 }
 
-void ABR_PlayerController::CreateDamageVignette() 
+void ABR_PlayerController::CreateDamageVignette()
 {
-    UUserWidget* DamageVignette = CreateWidget(this, DamageVignetteClass);
+    UUserWidget *DamageVignette = CreateWidget(this, DamageVignetteClass);
     if (DamageVignette)
     {
         DamageVignette->AddToViewport();
+    }
+}
+
+void ABR_PlayerController::CreateSloMoVignette()
+{
+    UUserWidget *SloMoVignette = CreateWidget(this, SloMoVignetteClass);
+    if (SloMoVignette)
+    {
+        SloMoVignette->AddToViewport();
     }
 }

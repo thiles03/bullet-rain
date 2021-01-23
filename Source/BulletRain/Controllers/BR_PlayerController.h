@@ -14,6 +14,7 @@ class BULLETRAIN_API ABR_PlayerController : public APlayerController
 public:
 	//FUNCTIONS
 	void CreateDamageVignette();
+	void CreateSloMoVignette();
 
 protected:
 	// Called when the game starts
@@ -27,6 +28,8 @@ private:
 	TSubclassOf<UUserWidget> CrossHairClass;	
 	UPROPERTY(EditDefaultsOnly, Category = "User Interface", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<UUserWidget> DamageVignetteClass;
+	UPROPERTY(EditDefaultsOnly, Category = "User Interface", meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<UUserWidget> SloMoVignetteClass;	
 	UPROPERTY(EditDefaultsOnly, Category = "User Interface", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<UUserWidget> WinScreenClass;
 	UPROPERTY(EditDefaultsOnly, Category = "User Interface", meta = (AllowPrivateAccess = "true"))

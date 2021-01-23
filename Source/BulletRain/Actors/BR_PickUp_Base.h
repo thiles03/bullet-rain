@@ -2,37 +2,29 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "BR_Projectile.generated.h"
+#include "BR_PickUp_Base.generated.h"
 
 class UCapsuleComponent;
-class UStaticMeshComponent;
-class UProjectileMovementComponent;
-class USceneComponent;
 
 UCLASS()
-class BULLETRAIN_API ABR_Projectile : public AActor
+class BULLETRAIN_API ABR_PickUp_Base : public AActor
 {
 	GENERATED_BODY()
-
-public:
+	
+public:	
 	//CONSTRUCTOR
-	ABR_Projectile();
+	ABR_PickUp_Base();
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-private:
+private:	
 	//COMPONENTS
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	USceneComponent *Projectile;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UCapsuleComponent *CapsuleCollider;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent *StaticMesh;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	UProjectileMovementComponent *ProjectileMovement;
 };
