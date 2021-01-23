@@ -24,7 +24,9 @@ public:
 	void Reload(EPistol Pistol);
 	// Ammo
 	UFUNCTION(BlueprintCallable)
-	int GetCurrentAmmo(EPistol Pistol);
+	int GetWeaponAmmo(EPistol Pistol);
+	UFUNCTION(BlueprintCallable)
+	int GetCarriedAmmo();
 	UFUNCTION(BlueprintCallable)
 	void SetAmmoCapacity(int Capacity);
 	UFUNCTION(BlueprintCallable)

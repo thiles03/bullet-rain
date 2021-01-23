@@ -18,10 +18,15 @@ public:
 	//CONSTRUCTOR
 	ABR_CharacterPlayer();
 
+	//COMPONENTS
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UCameraComponent *Camera;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UBR_CombatHandler_Player *CombatHandler;
+
 	//FUNCTIONS
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -31,10 +36,6 @@ protected:
 
 private:
 	//COMPONENTS
-	UPROPERTY(VisibleAnywhere, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	UCameraComponent *Camera;
-	UPROPERTY(VisibleAnywhere, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	UBR_CombatHandler_Player *CombatHandler;
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "Aiming", meta = (AllowPrivateAccess = "true"))
 	UCurveFloat *fCurve;
 
