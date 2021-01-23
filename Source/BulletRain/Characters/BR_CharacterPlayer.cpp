@@ -58,7 +58,7 @@ void ABR_CharacterPlayer::SetupPlayerInputComponent(UInputComponent *PlayerInput
 	PlayerInputComponent->BindAction("Aim", IE_Released, this, &ABR_CharacterPlayer::AimReset);
 }
 
-bool ABR_CharacterPlayer::GetIsSprinting() 
+bool ABR_CharacterPlayer::GetIsSprinting() const
 {
 	return IsSprinting;
 }

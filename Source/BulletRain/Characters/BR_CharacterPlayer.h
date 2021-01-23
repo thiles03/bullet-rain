@@ -30,7 +30,8 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	// Return true if character is sprinting
-	bool GetIsSprinting();
+	UFUNCTION(BlueprintCallable)
+	bool GetIsSprinting() const;
 
 protected:
 	//FUNCTIONS
