@@ -34,8 +34,13 @@ void UBR_CharacterStats_Player::TickComponent(float DeltaTime, ELevelTick TickTy
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	//Health regen
-	if (CurrentHealth > 0 && CanRegen)
+	// Health regen
+	if (CurrentHealth > 0 && CanRegenHealth)
+	{
+		UpdateCurrentHealth((GetWorld()->GetDeltaSeconds()) * HealthRegenRate);
+	}
+	// Bullet time regen
+	if (CanRegenBulletTime)
 	{
 		UpdateCurrentHealth((GetWorld()->GetDeltaSeconds()) * HealthRegenRate);
 	}
@@ -58,7 +63,7 @@ void UBR_CharacterStats_Player::TakeUnblockableDamage(float Damage, float Unbloc
 // Enable health regeneration
 void UBR_CharacterStats_Player::EnableRegen() 
 {
-	CanRegen = true;
+	CanRegenHealth = true;
 }
 
 void UBR_CharacterStats_Player::Die()
@@ -69,7 +74,7 @@ void UBR_CharacterStats_Player::Die()
 // Suspend health regen and spawn damage vignette
 void UBR_CharacterStats_Player::Damaged() 
 {
-	CanRegen = false;
+	CanRegenHealth = false;
 	GetOwner()->GetWorldTimerManager().SetTimer(RegenResetTimer, this, &UBR_CharacterStats_Player::EnableRegen, RegenDelay, false);
 	PlayerController->CreateDamageVignette();
 }

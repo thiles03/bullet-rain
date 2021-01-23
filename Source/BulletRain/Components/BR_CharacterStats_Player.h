@@ -15,38 +15,42 @@ public:
 	//CONSTRUCTOR
 	UBR_CharacterStats_Player();
 
-	//GETTERS
-	float GetRemainingBulletTime() const;
-
-	//SETTERS
-	void SetMaxBulletTime(float Time);
-
-	// Called every frame
+	//Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	// Damage handlers
+	//SETTERS
+	UFUNCTION(BlueprintCallable)
+	void SetMaxBulletTime(float Time);
+
+	//GETTERS
+	UFUNCTION(BlueprintCallable)
+	float GetRemainingBulletTime() const;
+
+	//FUNCTIONS
+	//Damage handlers
 	virtual void TakeDamage(float Damage) override;
 	virtual void TakeUnblockableDamage(float Damage, float UnblockableDamage) override;
 
 protected:
-	// Called when the game starts
+	//Called when the game starts
 	virtual void BeginPlay() override;
 
 private:	
 	//VARIABLES
-	// Health regen variables
+	//Health regen variables
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
 	float HealthRegenRate = .5f;
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
 	float RegenDelay = 5.f;
-	bool CanRegen = true;
+	bool CanRegenHealth = true;
 	FTimerHandle RegenResetTimer;
-	// Slow motion time
+	//Slow motion time
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
 	float MaxBulletTime = 5.f;
 	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
 	float RemainingBulletTime;
-	// Player controller
+	bool CanRegenBulletTime = true;
+	//Player controller
 	ABR_PlayerController* PlayerController;
 
 	//FUNCTIONS
