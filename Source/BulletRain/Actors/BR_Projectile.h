@@ -4,7 +4,7 @@
 #include "GameFramework/Actor.h"
 #include "BR_Projectile.generated.h"
 
-class UCapsuleComponent;
+class USphereComponent;
 class UStaticMeshComponent;
 class UProjectileMovementComponent;
 class USceneComponent;
@@ -28,11 +28,12 @@ protected:
 private:
 	//COMPONENTS
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	USceneComponent *Projectile;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	UCapsuleComponent *CapsuleCollider;
+	USphereComponent *Collider;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent *StaticMesh;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UProjectileMovementComponent *ProjectileMovement;
+	
+	//FUNCTIONS
+	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 };

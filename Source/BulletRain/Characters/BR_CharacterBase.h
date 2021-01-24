@@ -28,6 +28,9 @@ protected:
 	//FUNCTIONS
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	// On hit event
+	UFUNCTION()
+	virtual void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 	//Set movement speed
 	void SetSpeed(float Speed);
 

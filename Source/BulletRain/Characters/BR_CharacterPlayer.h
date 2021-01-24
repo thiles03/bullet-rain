@@ -97,5 +97,8 @@ private:
 	void AimReset();
 	void SetupTimeline();
 	UFUNCTION()
-	void TimelineFloatReturn(float Value);	
+	void TimelineFloatReturn(float Value);
+
+	// On overlap event
+	virtual void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit) override;
 };

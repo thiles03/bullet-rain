@@ -60,6 +60,7 @@ void ABR_CharacterPlayer::SetupPlayerInputComponent(UInputComponent *PlayerInput
 	PlayerInputComponent->BindAction("BulletTime", IE_Pressed, this, &ABR_CharacterPlayer::BulletTime);
 }
 
+// Return true if character is sprinting
 bool ABR_CharacterPlayer::GetIsSprinting() const
 {
 	return IsSprinting;
@@ -94,6 +95,7 @@ void ABR_CharacterPlayer::Fire(EPistol Pistol)
 	if (Pistol == EPistol::RIGHT) {CombatHandler->Fire(EPistol::RIGHT);}
 }
 
+// Call to CombatHandler to reload pistols
 void ABR_CharacterPlayer::Reload(EPistol Pistol) 
 {
 	if (Pistol == EPistol::LEFT) {CombatHandler->Reload(EPistol::LEFT);}
@@ -126,6 +128,7 @@ void ABR_CharacterPlayer::MoveRight(float AxisValue)
 	AddMovementInput(Direction, AxisValue);
 }
 
+// Activate sprint
 void ABR_CharacterPlayer::Sprint() 
 {
 	if (bIsCrouched) return;
@@ -135,6 +138,7 @@ void ABR_CharacterPlayer::Sprint()
 	TurnDampening = .2f;
 }
 
+// Return to walk speed
 void ABR_CharacterPlayer::SprintReset() 
 {
 	ABR_CharacterBase::SetSpeed(MaxSpeed);
@@ -143,17 +147,20 @@ void ABR_CharacterPlayer::SprintReset()
 	TurnDampening = 1.f;
 }
 
+// Toggle between crouching/standing
 void ABR_CharacterPlayer::ToggleCrouch() 
 {
 	if(bIsCrouched) UnCrouch();
 	else Crouch();
 }
 
+// Mouse turn
 void ABR_CharacterPlayer::Turn(float AxisValue) 
 {
 	AddControllerYawInput(AxisValue * TurnDampening);
 }
 
+// Start bullet time
 void ABR_CharacterPlayer::BulletTime() 
 {
 	PlayerStats->BulletTime();
@@ -178,4 +185,10 @@ void ABR_CharacterPlayer::SetupTimeline()
 void ABR_CharacterPlayer::TimelineFloatReturn(float Value) 
 {
 	Camera->SetFieldOfView(FMath::Lerp(FOV, AimFOV, Value));
+}
+
+// On overlap event
+void ABR_CharacterPlayer::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit) 
+{
+	Super::OnHit(HitComponent, OtherActor, OtherComp, NormalImpulse, Hit);
 }
