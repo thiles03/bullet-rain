@@ -1,5 +1,6 @@
 #include "BR_CharacterStats_Player.h"
 #include "BulletRain/Controllers/BR_PlayerController.h"
+#include "Components/AudioComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "TimerManager.h"
 
@@ -16,7 +17,6 @@ void UBR_CharacterStats_Player::BeginPlay()
 	Super::BeginPlay();
 
 	PlayerController = Cast<ABR_PlayerController>(GetWorld()->GetFirstPlayerController());
-
 }
 
 // Called every frame
@@ -84,18 +84,22 @@ void UBR_CharacterStats_Player::TakeUnblockableDamage(float Damage, float Unbloc
 
 void UBR_CharacterStats_Player::BulletTime() 
 {
-	if (IsBulletTimeActive)
-	{
-		IsBulletTimeActive = false;
-		UGameplayStatics::SetGlobalTimeDilation(GetWorld(), 1.f);
-		CanRegenBulletTime = true;
-	}
-	else
+	if (!IsBulletTimeActive)
 	{
 		PlayerController->CreateSloMoVignette();
 		IsBulletTimeActive = true;
 		UGameplayStatics::SetGlobalTimeDilation(GetWorld(), .5f);
 		CanRegenBulletTime = false;
+		UGameplayStatics::PlaySound2D(GetWorld(), EnterSloMoSound, 1.f, 1.f, .3f);
+		HeartBeat = UGameplayStatics::SpawnSound2D(GetWorld(), HeartbeatSound);
+	}
+	else
+	{
+		IsBulletTimeActive = false;
+		UGameplayStatics::SetGlobalTimeDilation(GetWorld(), 1.f);
+		CanRegenBulletTime = true;
+		UGameplayStatics::PlaySound2D(GetWorld(), ExitSloMoSound, 1.f, 1.f, 2.f);
+		HeartBeat->Stop();
 	}
 }
 

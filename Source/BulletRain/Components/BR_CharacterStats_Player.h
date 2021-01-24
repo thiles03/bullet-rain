@@ -5,6 +5,7 @@
 #include "BR_CharacterStats_Player.generated.h"
 
 class ABR_PlayerController;
+class UAudioComponent;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BULLETRAIN_API UBR_CharacterStats_Player : public UBR_CharacterStats_Base
@@ -51,6 +52,13 @@ private:
 	bool CanRegenHealth = true;
 	FTimerHandle RegenResetTimer;
 	//Slow motion time
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	USoundBase *EnterSloMoSound;
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	USoundBase *ExitSloMoSound;
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	USoundBase *HeartbeatSound;
+	UAudioComponent *HeartBeat;
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
 	float BulletTimeRegenRate = .4f;
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
