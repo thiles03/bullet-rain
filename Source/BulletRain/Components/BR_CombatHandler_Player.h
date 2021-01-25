@@ -7,18 +7,18 @@
 
 class ABR_Projectile;
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class BULLETRAIN_API UBR_CombatHandler_Player : public UBR_CombatHandler_Base
 {
 	GENERATED_BODY()
 
-public:	
+public:
 	//CONSTRUCTOR
 	UBR_CombatHandler_Player();
 
 	//FUNCTIONS
 	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 	// Weapons
 	void Fire(EPistol Pistol);
 	void Reload(EPistol Pistol);
@@ -71,13 +71,15 @@ private:
 	FTimerDelegate ReloadDelegateLeft;
 	FTimerHandle ReloadTimerRight;
 	FTimerDelegate ReloadDelegateRight;
-	//Muzzle effects
+	//Weapon effects
 	UPROPERTY(EditAnywhere)
 	UParticleSystem *MuzzleFlash;
 	UPROPERTY(EditAnywhere)
 	USoundBase *MuzzleSound;
 	UPROPERTY(EditAnywhere)
 	USoundBase *BulletSound;
+	UPROPERTY(EditAnywhere)
+	USoundBase *EmptyClick;
 
 	//FUNCTIONS
 	//Locate crosshair vanishing point

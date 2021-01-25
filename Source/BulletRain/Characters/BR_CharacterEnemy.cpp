@@ -28,9 +28,9 @@ void ABR_CharacterEnemy::BeginPlay()
 }
 
 // On overlap event
-void ABR_CharacterEnemy::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+void ABR_CharacterEnemy::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
-    Super::OnHit(HitComponent, OtherActor, OtherComp, NormalImpulse, Hit);
+    Super::OnBeginOverlap(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
     class ABR_Projectile *Projectile = Cast<ABR_Projectile>(OtherActor);
     if (Projectile)
     {
@@ -38,6 +38,7 @@ void ABR_CharacterEnemy::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherA
     }
 }
 
+// Called when another pawn enters viewcone
 void ABR_CharacterEnemy::OnSeePawn(APawn *OtherPawn) 
 {
     UE_LOG(LogTemp, Warning, (TEXT("Seen")));

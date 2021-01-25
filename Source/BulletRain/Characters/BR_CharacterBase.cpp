@@ -12,7 +12,7 @@ ABR_CharacterBase::ABR_CharacterBase()
 void ABR_CharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
-	GetCapsuleComponent()->OnComponentHit.AddDynamic(this, &ABR_CharacterBase::OnHit);
+	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &ABR_CharacterBase::OnBeginOverlap);
 	GetCharacterMovement()->MaxWalkSpeed = MaxSpeed;
 }
 
@@ -29,7 +29,7 @@ void ABR_CharacterBase::SetupPlayerInputComponent(UInputComponent *PlayerInputCo
 }
 
 // On overlap event
-void ABR_CharacterBase::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+void ABR_CharacterBase::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
 	
 }

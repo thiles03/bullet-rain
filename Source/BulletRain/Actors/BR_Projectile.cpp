@@ -24,7 +24,7 @@ ABR_Projectile::ABR_Projectile()
 void ABR_Projectile::BeginPlay()
 {
 	Super::BeginPlay();
-	Collider->OnComponentHit.AddDynamic(this, &ABR_Projectile::OnHit);
+	Collider->OnComponentBeginOverlap.AddDynamic(this, &ABR_Projectile::OnBeginOverlap);
 	Damage = Cast<ABR_CharacterPlayer>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))->CombatHandler->GetAttackDamage();
 }
 
@@ -41,9 +41,9 @@ float ABR_Projectile::GetDamage()
 }
 
 // On hit event
-void ABR_Projectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+void ABR_Projectile::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
 	Destroy();
-	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, Hit.Location, (GetActorForwardVector().Rotation())*-1, FVector(-.4f));
-	UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactSound, Hit.Location, 3.f);
+	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, SweepResult.Location, (GetActorForwardVector().Rotation())*-1, FVector(-.4f));
+	UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactSound, SweepResult.Location, 2.f);
 }

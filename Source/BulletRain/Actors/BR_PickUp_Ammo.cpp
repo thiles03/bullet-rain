@@ -23,6 +23,9 @@ void ABR_PickUp_Ammo::Tick(float DeltaTime)
 void ABR_PickUp_Ammo::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult) 
 {
 	Super::OnBeginOverlap(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
-	Player->CombatHandler->SetCurrentCarriedAmmo(AmmoValue);
-	Destroy();
+	if (Player)
+	{
+		Player->CombatHandler->SetCurrentCarriedAmmo(AmmoValue);
+		Destroy();		
+	}
 }

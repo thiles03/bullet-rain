@@ -88,13 +88,21 @@ void UBR_CombatHandler_Player::Fire(EPistol Pistol)
 	FName Socket;
 	if (Pistol == EPistol::RIGHT)
 	{
-		if (AmmoRight == 0 || IsReloadingRight) return;
+		if (IsReloadingRight) return;
+		if(AmmoRight == 0)
+		{
+			UGameplayStatics::SpawnSoundAttached(EmptyClick, Cast<ACharacter>(GetOwner())->GetMesh(), Socket);
+		}
 		Socket = "Muzzle_Right";
 		AmmoRight--;
 	}
 	if (Pistol == EPistol::LEFT)
 	{
-		if (AmmoLeft == 0 || IsReloadingLeft) return;
+		if (IsReloadingLeft) return;
+		if (AmmoLeft == 0)
+		{
+			UGameplayStatics::SpawnSoundAttached(EmptyClick, Cast<ACharacter>(GetOwner())->GetMesh(), Socket);
+		}
 		Socket = "Muzzle_Left";
 		AmmoLeft--;
 	}
