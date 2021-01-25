@@ -80,6 +80,8 @@ private:
 	USoundBase *BulletSound;
 	UPROPERTY(EditAnywhere)
 	USoundBase *EmptyClick;
+	UPROPERTY(EditAnywhere)
+	USoundBase *ReloadSound;
 
 	//FUNCTIONS
 	//Locate crosshair vanishing point

@@ -1,6 +1,7 @@
 #include "BR_PickUp_Base.h"
 #include "BulletRain/Characters/BR_CharacterPlayer.h"
 #include "Components/CapsuleComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Constructor
 ABR_PickUp_Base::ABR_PickUp_Base()

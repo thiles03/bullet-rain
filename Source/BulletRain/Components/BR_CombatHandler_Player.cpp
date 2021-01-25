@@ -92,6 +92,7 @@ void UBR_CombatHandler_Player::Fire(EPistol Pistol)
 		if(AmmoRight == 0)
 		{
 			UGameplayStatics::SpawnSoundAttached(EmptyClick, Cast<ACharacter>(GetOwner())->GetMesh(), Socket);
+			return;
 		}
 		Socket = "Muzzle_Right";
 		AmmoRight--;
@@ -102,6 +103,7 @@ void UBR_CombatHandler_Player::Fire(EPistol Pistol)
 		if (AmmoLeft == 0)
 		{
 			UGameplayStatics::SpawnSoundAttached(EmptyClick, Cast<ACharacter>(GetOwner())->GetMesh(), Socket);
+			return;
 		}
 		Socket = "Muzzle_Left";
 		AmmoLeft--;
@@ -126,6 +128,7 @@ void UBR_CombatHandler_Player::Reload(EPistol Pistol)
 	{
 		if(AmmoRight == MaxMagAmmo) return;
 		GetOwner()->GetWorldTimerManager().SetTimer(ReloadTimerRight, ReloadDelegateRight, ReloadSpeed, false);
+		UGameplayStatics::SpawnSoundAttached(ReloadSound, Cast<ACharacter>(GetOwner())->GetMesh(), "Muzzle_Right");
 		if (CurrentCarriedAmmo > (MaxMagAmmo - AmmoRight))
 		{
 			CurrentCarriedAmmo -= (MaxMagAmmo - AmmoRight);
@@ -141,6 +144,7 @@ void UBR_CombatHandler_Player::Reload(EPistol Pistol)
 	{
 		if(AmmoLeft == MaxMagAmmo) return;
 		GetOwner()->GetWorldTimerManager().SetTimer(ReloadTimerLeft, ReloadDelegateLeft, ReloadSpeed, false);
+		UGameplayStatics::SpawnSoundAttached(ReloadSound, Cast<ACharacter>(GetOwner())->GetMesh(), "Muzzle_Left");
 		if (CurrentCarriedAmmo > (MaxMagAmmo - AmmoLeft))
 		{
 			CurrentCarriedAmmo -= (MaxMagAmmo - AmmoLeft);
