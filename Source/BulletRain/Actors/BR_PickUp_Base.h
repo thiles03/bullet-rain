@@ -29,7 +29,9 @@ protected:
 	ABR_CharacterPlayer* Player;
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	// Pick
+	// Pickup sound
+	UPROPERTY(EditAnywhere)
+	USoundBase *PickupSound;
 
 private:	
 	//COMPONENTS
