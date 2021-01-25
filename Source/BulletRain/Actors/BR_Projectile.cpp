@@ -44,4 +44,6 @@ float ABR_Projectile::GetDamage()
 void ABR_Projectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	Destroy();
+	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, Hit.Location, (GetActorForwardVector().Rotation())*-1, FVector(-.4f));
+	UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactSound, Hit.Location, 3.f);
 }

@@ -71,16 +71,13 @@ private:
 	FTimerDelegate ReloadDelegateLeft;
 	FTimerHandle ReloadTimerRight;
 	FTimerDelegate ReloadDelegateRight;
-	//Visuals
+	//Muzzle effects
 	UPROPERTY(EditAnywhere)
 	UParticleSystem *MuzzleFlash;
 	UPROPERTY(EditAnywhere)
-	UParticleSystem *ImpactEffect;
-	//Sounds
-	UPROPERTY(EditAnywhere)
 	USoundBase *MuzzleSound;
 	UPROPERTY(EditAnywhere)
-	USoundBase *ImpactSound;
+	USoundBase *BulletSound;
 
 	//FUNCTIONS
 	//Locate crosshair vanishing point

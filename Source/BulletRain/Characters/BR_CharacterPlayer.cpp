@@ -133,6 +133,7 @@ void ABR_CharacterPlayer::MoveRight(float AxisValue)
 void ABR_CharacterPlayer::Sprint() 
 {
 	if (bIsCrouched) return;
+	if (IsAiming) AimReset();
 	ABR_CharacterBase::SetSpeed(SprintSpeed);
 	IsSprinting = true;
 	CurrentRotationRate = SprintRotationRate;

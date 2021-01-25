@@ -88,13 +88,13 @@ void UBR_CombatHandler_Player::Fire(EPistol Pistol)
 	FName Socket;
 	if (Pistol == EPistol::RIGHT)
 	{
-		if (AmmoRight == 0) return;
+		if (AmmoRight == 0 || IsReloadingRight) return;
 		Socket = "Muzzle_Right";
 		AmmoRight--;
 	}
 	if (Pistol == EPistol::LEFT)
 	{
-		if (AmmoLeft == 0) return;
+		if (AmmoLeft == 0 || IsReloadingLeft) return;
 		Socket = "Muzzle_Left";
 		AmmoLeft--;
 	}
@@ -107,6 +107,8 @@ void UBR_CombatHandler_Player::Fire(EPistol Pistol)
 
 	// Spawn VFX and SFX
 	UGameplayStatics::SpawnEmitterAttached(MuzzleFlash, Cast<ACharacter>(GetOwner())->GetMesh(), Socket, FVector(0.f), FRotator(0.f), FVector(0.5f));
+	UGameplayStatics::SpawnSoundAttached(MuzzleSound, Cast<ACharacter>(GetOwner())->GetMesh(), Socket);
+	UGameplayStatics::SpawnSoundAttached(BulletSound, Cast<ACharacter>(GetOwner())->GetMesh(), Socket);
 }
 
 // Reload left/right pistol
