@@ -19,20 +19,19 @@ public:
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
 	// Overlap event
 	UFUNCTION() 
 	virtual void OnBeginOverlap(UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
 
 protected:
 	//VARIABLES
-	ABR_CharacterPlayer* Player;
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
 	// Pickup sound
 	UPROPERTY(EditAnywhere)
 	USoundBase *PickupSound;
 
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+	
 private:	
 	//COMPONENTS
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))

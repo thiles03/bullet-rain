@@ -43,6 +43,8 @@ float ABR_Projectile::GetDamage()
 // On hit event
 void ABR_Projectile::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
+	ABR_CharacterPlayer *Player = Cast<ABR_CharacterPlayer>(OtherActor);
+	if(Player) return;
 	Destroy();
 	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, SweepResult.Location, (GetActorForwardVector().Rotation())*-1, FVector(-.4f));
 	UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactSound, SweepResult.Location, 2.f);

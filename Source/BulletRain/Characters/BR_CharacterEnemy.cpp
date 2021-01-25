@@ -1,6 +1,8 @@
 #include "BR_CharacterEnemy.h"
+#include "BR_CharacterPlayer.h"
 #include "BulletRain/Actors/BR_Projectile.h"
 #include "BulletRain/Components/BR_CharacterStats_Enemy.h"
+#include "BulletRain/Controllers/BR_AIController.h"
 #include "Perception/PawnSensingComponent.h"
 
 // Constructor
@@ -23,7 +25,7 @@ void ABR_CharacterEnemy::Tick(float DeltaTime)
 void ABR_CharacterEnemy::BeginPlay()
 {
     Super::BeginPlay();
-
+    AIController = Cast<ABR_AIController>(GetController());
     PawnSensor->OnSeePawn.AddDynamic(this, &ABR_CharacterEnemy::OnSeePawn);
 }
 
@@ -41,5 +43,10 @@ void ABR_CharacterEnemy::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, cla
 // Called when another pawn enters viewcone
 void ABR_CharacterEnemy::OnSeePawn(APawn *OtherPawn) 
 {
-    UE_LOG(LogTemp, Warning, (TEXT("Seen")));
+    ABR_CharacterPlayer *Player = Cast<ABR_CharacterPlayer>(OtherPawn);
+    if (Player)
+    {
+        IsPlayerVisible = true;
+        // Call controller to move to player
+    }
 }

@@ -4,6 +4,7 @@
 #include "BR_CharacterBase.h"
 #include "BR_CharacterEnemy.generated.h"
 
+class ABR_AIController;
 class ABR_CharacterStats_Enemy;
 class UPawnSensingComponent;
 
@@ -29,6 +30,13 @@ private:
 	//COMPONENTS
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UPawnSensingComponent *PawnSensor;
+
+	//VARIABLES
+	// Reference to this character's AI controller
+	UPROPERTY()
+	ABR_AIController *AIController;
+	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"));
+	bool IsPlayerVisible = false;
 
 	//FUNCTIONS
 	// On overlap event

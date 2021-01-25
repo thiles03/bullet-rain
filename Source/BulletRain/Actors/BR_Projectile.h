@@ -4,6 +4,7 @@
 #include "GameFramework/Actor.h"
 #include "BR_Projectile.generated.h"
 
+class ABR_CharacterPlayer;
 class USphereComponent;
 class UStaticMeshComponent;
 class UProjectileMovementComponent;
