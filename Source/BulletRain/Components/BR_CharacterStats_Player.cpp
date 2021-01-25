@@ -111,7 +111,7 @@ void UBR_CharacterStats_Player::EnableRegen()
 
 void UBR_CharacterStats_Player::Die()
 {
-	
+	Super::Die();
 }
 
 // Suspend health regen and spawn damage vignette

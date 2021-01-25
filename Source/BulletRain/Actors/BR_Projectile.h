@@ -21,6 +21,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	// Get damage
+	float GetDamage();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -33,6 +36,10 @@ private:
 	UStaticMeshComponent *StaticMesh;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UProjectileMovementComponent *ProjectileMovement;
+
+	//VARIABLES
+	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
+	float Damage;
 	
 	//FUNCTIONS
 	UFUNCTION()

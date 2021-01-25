@@ -20,7 +20,7 @@ void UBR_CharacterStats_Base::BeginPlay()
 void UBR_CharacterStats_Base::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
+	if (CurrentHealth == 0) Die();
 }
 
 //SETTERS

@@ -1,7 +1,10 @@
 #include "BR_Projectile.h"
+#include "BulletRain/Characters/BR_CharacterPlayer.h"
+#include "BulletRain/Components/BR_CombatHandler_Player.h"
+#include "Components/SceneComponent.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
-#include "Components/SceneComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ABR_Projectile::ABR_Projectile()
@@ -22,12 +25,19 @@ void ABR_Projectile::BeginPlay()
 {
 	Super::BeginPlay();
 	Collider->OnComponentHit.AddDynamic(this, &ABR_Projectile::OnHit);
+	Damage = Cast<ABR_CharacterPlayer>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))->CombatHandler->GetAttackDamage();
 }
 
 // Called every frame
 void ABR_Projectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
+
+// Return projectile's damage value
+float ABR_Projectile::GetDamage() 
+{
+	return Damage;
 }
 
 // On hit event

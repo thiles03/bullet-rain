@@ -31,7 +31,7 @@ void ABR_CharacterBase::SetupPlayerInputComponent(UInputComponent *PlayerInputCo
 // On overlap event
 void ABR_CharacterBase::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	UE_LOG(LogTemp, Error, TEXT("Super Hit!"));
+	
 }
 
 // Set max walk speed

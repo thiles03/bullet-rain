@@ -25,5 +25,6 @@ void UBR_CharacterStats_Enemy::TickComponent(float DeltaTime, ELevelTick TickTyp
 
 void UBR_CharacterStats_Enemy::Die()
 {
-	
+	Super::Die();
+	GetOwner()->Destroy();
 }

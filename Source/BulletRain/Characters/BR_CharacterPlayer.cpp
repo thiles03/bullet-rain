@@ -69,6 +69,7 @@ bool ABR_CharacterPlayer::GetIsSprinting() const
 // Aim weapon
 void ABR_CharacterPlayer::Aim()
 {
+	if (IsSprinting) SprintReset();
 	IsAiming = true;
 	ABR_CharacterBase::SetSpeed(AimMoveSpeed);
 	FOVTimeline.Play();

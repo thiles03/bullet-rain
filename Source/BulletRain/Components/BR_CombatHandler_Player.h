@@ -27,6 +27,8 @@ public:
 	int GetWeaponAmmo(EPistol Pistol) const;
 	UFUNCTION(BlueprintCallable)
 	int GetCarriedAmmo() const;
+	UFUNCTION(BlueprintCallable)
+	bool GetIsReloading();
 	//SETTERS
 	UFUNCTION(BlueprintCallable)
 	void SetMaxCarriedAmmo(int Capacity);
@@ -34,6 +36,8 @@ public:
 	void SetCurrentCarriedAmmo(int Amount);
 	UFUNCTION(BlueprintCallable)
 	void SetMaxMagAmmo(int Capacity);
+	UFUNCTION(BlueprintCallable)
+	void SetIsReloading(EPistol Pistol, bool Reloading);
 
 protected:
 	// Called when the game starts
@@ -41,7 +45,7 @@ protected:
 
 private:
 	//VARIABLES
-	//Ammunition properties
+	//Weapon/ammo properties
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<ABR_Projectile> ProjectileClass;
 	UPROPERTY(EditAnywhere)
@@ -56,6 +60,17 @@ private:
 	int AmmoLeft;
 	UPROPERTY(VisibleAnywhere)
 	int AmmoRight;
+	//Reload handling
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	float ReloadSpeed = 3.f;
+	UPROPERTY(VisibleAnywhere)
+	bool IsReloadingLeft = false;
+	UPROPERTY(VisibleAnywhere)
+	bool IsReloadingRight = false;
+	FTimerHandle ReloadTimerLeft;
+	FTimerDelegate ReloadDelegateLeft;
+	FTimerHandle ReloadTimerRight;
+	FTimerDelegate ReloadDelegateRight;
 	//Visuals
 	UPROPERTY(EditAnywhere)
 	UParticleSystem *MuzzleFlash;

@@ -20,3 +20,8 @@ void UBR_CombatHandler_Base::TickComponent(float DeltaTime, ELevelTick TickType,
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
+float UBR_CombatHandler_Base::GetAttackDamage() 
+{
+	return AttackDamage;
+}
+
