@@ -41,7 +41,9 @@ private:
 	UPROPERTY(EditAnywhere)
 	UParticleSystem *ImpactEffect;
 	UPROPERTY(EditAnywhere)
-	USoundBase *ImpactSound;
+	USoundBase *ImpactSoundEnemy;
+	UPROPERTY(EditAnywhere)
+	USoundBase *ImpactSoundWorld;
 
 	//VARIABLES
 	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))

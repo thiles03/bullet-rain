@@ -1,4 +1,5 @@
 #include "BR_Projectile.h"
+#include "BulletRain/Characters/BR_CharacterEnemy.h"
 #include "BulletRain/Characters/BR_CharacterPlayer.h"
 #include "BulletRain/Components/BR_CombatHandler_Player.h"
 #include "Components/SceneComponent.h"
@@ -46,7 +47,15 @@ void ABR_Projectile::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, class A
 {
 	ABR_CharacterPlayer *Player = Cast<ABR_CharacterPlayer>(OtherActor);
 	if(Player) return;
+	ABR_CharacterEnemy *Enemy = Cast<ABR_CharacterEnemy>(OtherActor);
+	if (Enemy)
+	{
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactSoundEnemy, SweepResult.Location, 2.f);
+	}
+	else
+	{
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactSoundWorld, SweepResult.Location, 2.f);
+	}
 	Destroy();
 	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, SweepResult.Location, (GetActorForwardVector().Rotation())*-1, FVector(-.4f));
-	UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactSound, SweepResult.Location, 2.f);
 }
