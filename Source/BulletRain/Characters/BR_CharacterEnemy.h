@@ -5,7 +5,8 @@
 #include "BR_CharacterEnemy.generated.h"
 
 class ABR_AIController;
-class ABR_CharacterStats_Enemy;
+class UBR_CharacterStats_Enemy;
+class UBR_CombatHandler_Enemy;
 class UPawnSensingComponent;
 
 UCLASS()
@@ -21,6 +22,12 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	//GETTERS
+	bool GetIsPlayerVisible();
+
+	// SETTERS
+	void SetIsPlayerVisible(bool IsVisible);
+
 protected:
 	//FUNCTIONS
 	// Called when the game starts or when spawned
@@ -35,6 +42,13 @@ private:
 	// Reference to this character's AI controller
 	UPROPERTY()
 	ABR_AIController *AIController;
+	// Reference to this character's stats
+	UPROPERTY()
+	UBR_CharacterStats_Enemy *CharacterStats;
+	// Reference to this character's combat component
+	UPROPERTY()
+	UBR_CombatHandler_Enemy *CharacterCombatHandler;
+	// Is the player within sight line
 	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"));
 	bool IsPlayerVisible = false;
 
@@ -44,4 +58,6 @@ private:
 	// Called when another pawn enters sight line
 	UFUNCTION()
 	void OnSeePawn(APawn *OtherPawn);
+	// Rotate character to look at location
+	void LookAtTarget(FVector LookAtTarget);
 };

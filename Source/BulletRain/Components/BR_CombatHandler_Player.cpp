@@ -19,7 +19,7 @@ UBR_CombatHandler_Player::UBR_CombatHandler_Player()
 void UBR_CombatHandler_Player::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	PlayerMesh = Cast<ACharacter>(GetOwner())->GetMesh();
 	AmmoLeft = MaxMagAmmo, AmmoRight = MaxMagAmmo;
 	ReloadDelegateLeft = FTimerDelegate::CreateUObject(this, &UBR_CombatHandler_Player::SetIsReloading, EPistol::LEFT, false);
 	ReloadDelegateRight = FTimerDelegate::CreateUObject(this, &UBR_CombatHandler_Player::SetIsReloading, EPistol::RIGHT, false);
@@ -91,7 +91,7 @@ void UBR_CombatHandler_Player::Fire(EPistol Pistol)
 		if (IsReloadingRight) return;
 		if(AmmoRight == 0)
 		{
-			UGameplayStatics::SpawnSoundAttached(EmptyClick, Cast<ACharacter>(GetOwner())->GetMesh(), Socket);
+			UGameplayStatics::SpawnSoundAttached(EmptyClick, PlayerMesh, Socket);
 			return;
 		}
 		Socket = "Muzzle_Right";
@@ -102,7 +102,7 @@ void UBR_CombatHandler_Player::Fire(EPistol Pistol)
 		if (IsReloadingLeft) return;
 		if (AmmoLeft == 0)
 		{
-			UGameplayStatics::SpawnSoundAttached(EmptyClick, Cast<ACharacter>(GetOwner())->GetMesh(), Socket);
+			UGameplayStatics::SpawnSoundAttached(EmptyClick, PlayerMesh, Socket);
 			return;
 		}
 		Socket = "Muzzle_Left";
@@ -111,14 +111,14 @@ void UBR_CombatHandler_Player::Fire(EPistol Pistol)
 
 	// Spawn projectile
 	if (!ProjectileClass) {return;}
-	FVector SpawnLocation = Cast<ACharacter>(GetOwner())->GetMesh()->GetSocketTransform(Socket).GetLocation(); // Muzzle location
+	FVector SpawnLocation = PlayerMesh->GetSocketTransform(Socket).GetLocation(); // Muzzle location
 	FRotator SpawnRotation = UKismetMathLibrary::FindLookAtRotation(SpawnLocation, GetAimPoint());	// Angle from muzzle towards player aim reticle
 	ABR_Projectile *ProjectileTemp = GetWorld()->SpawnActor<ABR_Projectile>(ProjectileClass, SpawnLocation, SpawnRotation);
 
 	// Spawn VFX and SFX
-	UGameplayStatics::SpawnEmitterAttached(MuzzleFlash, Cast<ACharacter>(GetOwner())->GetMesh(), Socket, FVector(0.f), FRotator(0.f), FVector(0.5f));
-	UGameplayStatics::SpawnSoundAttached(MuzzleSound, Cast<ACharacter>(GetOwner())->GetMesh(), Socket);
-	UGameplayStatics::SpawnSoundAttached(BulletSound, Cast<ACharacter>(GetOwner())->GetMesh(), Socket);
+	UGameplayStatics::SpawnEmitterAttached(MuzzleFlash, PlayerMesh, Socket, FVector(0.f), FRotator(0.f), FVector(0.5f));
+	UGameplayStatics::SpawnSoundAttached(MuzzleSound, PlayerMesh, Socket);
+	UGameplayStatics::SpawnSoundAttached(BulletSound, PlayerMesh, Socket);
 }
 
 // Reload left/right pistol
@@ -128,7 +128,7 @@ void UBR_CombatHandler_Player::Reload(EPistol Pistol)
 	{
 		if(AmmoRight == MaxMagAmmo) return;
 		GetOwner()->GetWorldTimerManager().SetTimer(ReloadTimerRight, ReloadDelegateRight, ReloadSpeed, false);
-		UGameplayStatics::SpawnSoundAttached(ReloadSound, Cast<ACharacter>(GetOwner())->GetMesh(), "Muzzle_Right");
+		UGameplayStatics::SpawnSoundAttached(ReloadSound, PlayerMesh, "Muzzle_Right");
 		if (CurrentCarriedAmmo > (MaxMagAmmo - AmmoRight))
 		{
 			CurrentCarriedAmmo -= (MaxMagAmmo - AmmoRight);
@@ -144,7 +144,7 @@ void UBR_CombatHandler_Player::Reload(EPistol Pistol)
 	{
 		if(AmmoLeft == MaxMagAmmo) return;
 		GetOwner()->GetWorldTimerManager().SetTimer(ReloadTimerLeft, ReloadDelegateLeft, ReloadSpeed, false);
-		UGameplayStatics::SpawnSoundAttached(ReloadSound, Cast<ACharacter>(GetOwner())->GetMesh(), "Muzzle_Left");
+		UGameplayStatics::SpawnSoundAttached(ReloadSound, PlayerMesh, "Muzzle_Left");
 		if (CurrentCarriedAmmo > (MaxMagAmmo - AmmoLeft))
 		{
 			CurrentCarriedAmmo -= (MaxMagAmmo - AmmoLeft);
@@ -170,7 +170,7 @@ FVector UBR_CombatHandler_Player::GetAimPoint() const
 		OUT PlayerViewpointRotation
 	);
 
-	FVector LineTraceEnd = PlayerViewpointLocation + FVector(PlayerViewpointRotation.Vector() * Range);
+	FVector LineTraceEnd = PlayerViewpointLocation + FVector(PlayerViewpointRotation.Vector() * AttackRange);
 
 	return LineTraceEnd;
 }

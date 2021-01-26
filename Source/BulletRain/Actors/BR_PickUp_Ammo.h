@@ -26,8 +26,6 @@ private:
 	//VARIABLES
 	UPROPERTY(Editanywhere, meta = (AllowPrivateAccess = "true"))
 	int AmmoValue = 30;
-	// Reference to player
-	ABR_CharacterPlayer* Player;
 
 	//FUNCTIONS
 	// Overlap event	

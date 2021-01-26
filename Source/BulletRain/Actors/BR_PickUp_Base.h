@@ -5,7 +5,7 @@
 #include "BR_PickUp_Base.generated.h"
 
 class ABR_CharacterPlayer;
-class UCapsuleComponent;
+class USphereComponent;
 class UStaticMeshComponent;
 
 UCLASS()
@@ -28,6 +28,9 @@ protected:
 	// Pickup sound
 	UPROPERTY(EditAnywhere)
 	USoundBase *PickupSound;
+	// Reference to player
+	UPROPERTY()
+	ABR_CharacterPlayer* Player;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -35,7 +38,7 @@ protected:
 private:	
 	//COMPONENTS
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	UCapsuleComponent *CapsuleCollider;
+	USphereComponent *SphereCollider;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent *StaticMesh;
 };

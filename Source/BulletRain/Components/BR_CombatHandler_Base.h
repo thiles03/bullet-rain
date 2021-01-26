@@ -14,10 +14,13 @@ public:
 	//CONSTRUCTOR
 	UBR_CombatHandler_Base();
 
+	//FUNCTIONS
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
+	//GETTERS
 	float GetAttackDamage();
+	float GetAttackSpeed();
+	float GetAttackRange();
 
 protected:
 	//VARIABLES
@@ -25,6 +28,8 @@ protected:
 	float AttackDamage = 5.f;
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
 	float AttackSpeed = 5.f;
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	float AttackRange = 100.f;
 
 	//FUNCTIONS
 	// Called when the game starts

@@ -2,7 +2,9 @@
 #include "BR_CharacterPlayer.h"
 #include "BulletRain/Actors/BR_Projectile.h"
 #include "BulletRain/Components/BR_CharacterStats_Enemy.h"
+#include "BulletRain/Components/BR_CombatHandler_Enemy.h"
 #include "BulletRain/Controllers/BR_AIController.h"
+#include "Kismet/GameplayStatics.h"
 #include "Perception/PawnSensingComponent.h"
 
 // Constructor
@@ -11,7 +13,7 @@ ABR_CharacterEnemy::ABR_CharacterEnemy()
     PrimaryActorTick.bCanEverTick = true; // Set this character to call Tick() every frame.
 
     PawnSensor = CreateDefaultSubobject<UPawnSensingComponent>(TEXT("Pawn Sensing"));
-    PawnSensor->SensingInterval = .25f; // 4 times per second
+    PawnSensor->SensingInterval = .016f; //60fps
     PawnSensor->SetPeripheralVisionAngle(45.f);
 }
 
@@ -21,11 +23,23 @@ void ABR_CharacterEnemy::Tick(float DeltaTime)
     Super::Tick(DeltaTime);
 }
 
+bool ABR_CharacterEnemy::GetIsPlayerVisible() 
+{
+    return IsPlayerVisible;
+}
+
+void ABR_CharacterEnemy::SetIsPlayerVisible(bool IsVisible) 
+{
+    IsPlayerVisible = IsVisible;
+}
+
 // Called when the game starts or when spawned
 void ABR_CharacterEnemy::BeginPlay()
 {
     Super::BeginPlay();
     AIController = Cast<ABR_AIController>(GetController());
+    CharacterStats = FindComponentByClass<UBR_CharacterStats_Enemy>();
+    CharacterCombatHandler = FindComponentByClass<UBR_CombatHandler_Enemy>();
     PawnSensor->OnSeePawn.AddDynamic(this, &ABR_CharacterEnemy::OnSeePawn);
 }
 
@@ -36,7 +50,8 @@ void ABR_CharacterEnemy::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, cla
     class ABR_Projectile *Projectile = Cast<ABR_Projectile>(OtherActor);
     if (Projectile)
     {
-        this->FindComponentByClass<UBR_CharacterStats_Enemy>()->TakeDamage(Projectile->GetDamage());
+        this->CharacterStats->TakeDamage(Projectile->GetDamage());
+        LookAtTarget(UGameplayStatics::GetPlayerCharacter(GetWorld(),0)->GetActorLocation());
     }
 }
 
@@ -47,6 +62,15 @@ void ABR_CharacterEnemy::OnSeePawn(APawn *OtherPawn)
     if (Player)
     {
         IsPlayerVisible = true;
-        // Call controller to move to player
+        AIController->MoveToAttack(Player->GetActorLocation(), CharacterCombatHandler->GetAttackRange());
     }
+}
+
+void ABR_CharacterEnemy::LookAtTarget(FVector LookAtTarget)
+{
+	// Update character rotation to face LookAtTarget
+	FVector LookAtTargetClean = FVector(LookAtTarget.X, LookAtTarget.Y, GetActorLocation().Z);
+	FVector StartLocation = GetActorLocation();
+	FRotator CharacterRoatation = FVector(LookAtTargetClean - StartLocation).Rotation();
+	this->SetActorRotation(CharacterRoatation);
 }

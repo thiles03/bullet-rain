@@ -49,8 +49,6 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<ABR_Projectile> ProjectileClass;
 	UPROPERTY(EditAnywhere)
-	float Range = 1300.f;
-	UPROPERTY(EditAnywhere)
 	int MaxMagAmmo = 17;
 	UPROPERTY(EditAnywhere)
 	int MaxCarriedAmmo = 100;
@@ -82,6 +80,9 @@ private:
 	USoundBase *EmptyClick;
 	UPROPERTY(EditAnywhere)
 	USoundBase *ReloadSound;
+	// Player mesh
+	UPROPERTY()
+	USkeletalMeshComponent* PlayerMesh;
 
 	//FUNCTIONS
 	//Locate crosshair vanishing point
