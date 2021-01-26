@@ -1,4 +1,6 @@
 #include "BR_CharacterStats_Enemy.h"
+#include "BulletRain/GameModes/BR_GameMode_Base.h"
+#include "Engine/World.h"
 
 // Constructor
 UBR_CharacterStats_Enemy::UBR_CharacterStats_Enemy()
@@ -27,4 +29,5 @@ void UBR_CharacterStats_Enemy::Die()
 {
 	Super::Die();
 	GetOwner()->Destroy();
+	Cast<ABR_GameMode_Base>(GetWorld()->GetAuthGameMode())->SetKillCount(1);
 }

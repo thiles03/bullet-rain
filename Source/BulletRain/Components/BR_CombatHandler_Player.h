@@ -22,13 +22,19 @@ public:
 	// Weapons
 	void Fire(EPistol Pistol);
 	void Reload(EPistol Pistol);
+
 	//GETTERS
 	UFUNCTION(BlueprintCallable)
 	int GetWeaponAmmo(EPistol Pistol) const;
 	UFUNCTION(BlueprintCallable)
 	int GetCarriedAmmo() const;
 	UFUNCTION(BlueprintCallable)
-	bool GetIsReloading();
+	bool GetIsReloading() const;
+	UFUNCTION(BlueprintCallable)
+	bool GetIsAttackingRight() const;
+	UFUNCTION(BlueprintCallable)
+	bool GetIsAttackingLeft() const;
+
 	//SETTERS
 	UFUNCTION(BlueprintCallable)
 	void SetMaxCarriedAmmo(int Capacity);
@@ -38,6 +44,10 @@ public:
 	void SetMaxMagAmmo(int Capacity);
 	UFUNCTION(BlueprintCallable)
 	void SetIsReloading(EPistol Pistol, bool Reloading);
+	UFUNCTION(BlueprintCallable)
+	void SetIsAttackingRight(bool Attacking);
+	UFUNCTION(BlueprintCallable)
+	void SetIsAttackingLeft(bool Attacking);
 
 protected:
 	// Called when the game starts
@@ -83,6 +93,11 @@ private:
 	// Player mesh
 	UPROPERTY()
 	USkeletalMeshComponent* PlayerMesh;
+	// Is the player attacking
+	UPROPERTY(VisibleAnywhere)
+	bool IsAttackingLeft = false;
+	UPROPERTY(VisibleAnywhere)
+	bool IsAttackingRight = false;
 
 	//FUNCTIONS
 	//Locate crosshair vanishing point

@@ -37,7 +37,7 @@ private:
 	UStaticMeshComponent *StaticMesh;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UProjectileMovementComponent *ProjectileMovement;
-	//Impact effects
+	//Bullet effects
 	UPROPERTY(EditAnywhere)
 	UParticleSystem *ImpactEffect;
 	UPROPERTY(EditAnywhere)

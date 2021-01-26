@@ -38,9 +38,21 @@ int UBR_CombatHandler_Player::GetCarriedAmmo() const
 }
 
 // Return true if player is reloading
-bool UBR_CombatHandler_Player::GetIsReloading() 
+bool UBR_CombatHandler_Player::GetIsReloading() const 
 {
 	return (IsReloadingLeft && IsReloadingRight);
+}
+
+// Return true if attacking with right pistol
+bool UBR_CombatHandler_Player::GetIsAttackingRight() const 
+{
+	return IsAttackingRight;
+}
+
+// Return true if attacking with left pistol
+bool UBR_CombatHandler_Player::GetIsAttackingLeft() const 
+{
+	return IsAttackingLeft;
 }
 
 // Get the current ammo remaining for left/right pistol
@@ -82,30 +94,42 @@ void UBR_CombatHandler_Player::SetIsReloading(EPistol Pistol, bool Reloading)
 	if(Pistol == EPistol::RIGHT) IsReloadingRight = Reloading;
 }
 
+void UBR_CombatHandler_Player::SetIsAttackingRight(bool Attacking) 
+{
+	IsAttackingRight = Attacking;
+}
+
+void UBR_CombatHandler_Player::SetIsAttackingLeft(bool Attacking) 
+{
+	IsAttackingLeft = Attacking;
+}
+
 // Fire left/right pistol depending on mouse click
 void UBR_CombatHandler_Player::Fire(EPistol Pistol)
 {	
 	FName Socket;
 	if (Pistol == EPistol::RIGHT)
 	{
-		if (IsReloadingRight) return;
+		if (IsReloadingRight || IsAttackingRight) return;
 		if(AmmoRight == 0)
 		{
 			UGameplayStatics::SpawnSoundAttached(EmptyClick, PlayerMesh, Socket);
 			return;
 		}
 		Socket = "Muzzle_Right";
+		IsAttackingRight = true;
 		AmmoRight--;
 	}
 	if (Pistol == EPistol::LEFT)
 	{
-		if (IsReloadingLeft) return;
+		if (IsReloadingLeft || IsAttackingLeft) return;
 		if (AmmoLeft == 0)
 		{
 			UGameplayStatics::SpawnSoundAttached(EmptyClick, PlayerMesh, Socket);
 			return;
 		}
 		Socket = "Muzzle_Left";
+		IsAttackingLeft = true;
 		AmmoLeft--;
 	}
 
