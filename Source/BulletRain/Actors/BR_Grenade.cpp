@@ -18,7 +18,7 @@ ABR_Grenade::ABR_Grenade()
 	StaticMesh->SetupAttachment(Collider);
 	BlastRadius->SetupAttachment(Collider);
 	BlastRadius->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-	BlastRadius->SetSphereRadius(5000.f);
+	BlastRadius->SetSphereRadius(8000.f);
 }
 
 // Called when the game starts or when spawned
@@ -49,9 +49,7 @@ void ABR_Grenade::DestroyActor()
 	for (AActor* Enemy : OverlappedEnemies)
 	{
 		AnEnemy = Cast<ABR_CharacterEnemy>(Enemy);
-		AnEnemy->CharacterStats->TakeDamage(Damage);
-		FVector BlastDirection = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), Enemy->GetActorLocation()).Vector();
-		AnEnemy->GetMesh()->AddImpulse(BlastDirection * BlastForce);
+		AnEnemy->CharacterStats->TakeExplosiveDamage(GetActorLocation(), BlastForce);
 	}
 	Destroy();
 }

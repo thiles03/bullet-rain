@@ -4,6 +4,7 @@
 #include "BR_CharacterStats_Base.h"
 #include "BR_CharacterStats_Enemy.generated.h"
 
+class ABR_CharacterEnemy;
 class ABR_PlayerController;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -20,6 +21,7 @@ public:
 	// Damage handlers
 	virtual void TakeDamage(float Damage) override;
 	virtual void TakeUnblockableDamage(float Damage, float UnblockableDamage) override;
+	void TakeExplosiveDamage(FVector ExplosionLocation, FVector BlastForce);
 
 protected:
 	// Called when the game starts

@@ -9,7 +9,7 @@ void ABR_AIController::BeginPlay()
 {
     Super::BeginPlay();
     EnemyCharacter = Cast<ABR_CharacterEnemy>(GetCharacter());
-    GetWorldTimerManager().SetTimer(PatrolTimer, this, &ABR_AIController::Patrol, PatrolDelay, true);
+    //GetWorldTimerManager().SetTimer(PatrolTimer, this, &ABR_AIController::Patrol, PatrolDelay, true);
 }
 
 // Called every frame

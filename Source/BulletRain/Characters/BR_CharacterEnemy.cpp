@@ -62,7 +62,7 @@ void ABR_CharacterEnemy::OnSeePawn(APawn *OtherPawn)
     if (Player)
     {
         IsPlayerVisible = true;
-        AIController->MoveToAttack(Player->GetActorLocation(), CharacterCombatHandler->GetAttackRange());
+        //AIController->MoveToAttack(Player->GetActorLocation(), CharacterCombatHandler->GetAttackRange());
     }
 }
 

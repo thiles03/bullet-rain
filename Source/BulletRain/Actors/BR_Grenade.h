@@ -38,7 +38,7 @@ private:
 	UPROPERTY(EditAnywhere)
 	FVector ThrowForce = FVector(800.f);
 	UPROPERTY(EditAnywhere)
-	FVector BlastForce = FVector(5500.f);
+	FVector BlastForce = FVector(100000.f);
 	UPROPERTY(EditAnywhere)
 	float Fuse = 1.5f;
 	UPROPERTY(EditAnywhere)

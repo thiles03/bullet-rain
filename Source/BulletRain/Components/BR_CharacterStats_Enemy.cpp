@@ -6,6 +6,7 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "TimerManager.h"
 
 // Constructor
@@ -39,11 +40,18 @@ void UBR_CharacterStats_Enemy::TakeUnblockableDamage(float Damage, float Unblock
 	PlayerController->CreateHitMarker();
 }
 
+void UBR_CharacterStats_Enemy::TakeExplosiveDamage(FVector ExplosionLocation, FVector BlastForce) 
+{
+	Die();
+	FVector BlastDirection = UKismetMathLibrary::FindLookAtRotation(ExplosionLocation, GetOwner()->GetActorLocation()).Vector();
+	Cast<ABR_CharacterEnemy>(GetOwner())->GetMesh()->AddImpulse(BlastDirection * BlastForce);
+}
+
 void UBR_CharacterStats_Enemy::Die()
 {
 	Super::Die();
 	IsDead = true;
-	class ABR_CharacterEnemy* EnemyCharacter = Cast<ABR_CharacterEnemy>(GetOwner());
+	ABR_CharacterEnemy* EnemyCharacter = Cast<ABR_CharacterEnemy>(GetOwner());
 	EnemyCharacter->GetMesh()->SetSimulatePhysics(true);
 	EnemyCharacter->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	GetWorld()->GetTimerManager().SetTimer(DestroyTimer, this, &UBR_CharacterStats_Enemy::DestroyActor, DestroyDelay, false);
