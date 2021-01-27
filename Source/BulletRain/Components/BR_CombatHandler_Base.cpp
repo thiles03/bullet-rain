@@ -21,19 +21,19 @@ void UBR_CombatHandler_Base::TickComponent(float DeltaTime, ELevelTick TickType,
 }
 
 // Get attack damage
-float UBR_CombatHandler_Base::GetAttackDamage() 
+float UBR_CombatHandler_Base::GetAttackDamage() const
 {
 	return AttackDamage;
 }
 
 // Get attack speed
-float UBR_CombatHandler_Base::GetAttackSpeed() 
+float UBR_CombatHandler_Base::GetAttackSpeed() const
 {
 	return AttackSpeed;
 }
 
 // Get attack range
-float UBR_CombatHandler_Base::GetAttackRange() 
+float UBR_CombatHandler_Base::GetAttackRange() const 
 {
 	return AttackRange;
 }

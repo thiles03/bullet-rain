@@ -31,3 +31,21 @@ void ABR_PlayerController::CreateSloMoVignette()
         SloMoVignette->AddToViewport();
     }
 }
+
+void ABR_PlayerController::CreateHitMarker() 
+{
+    UUserWidget *HitMarker = CreateWidget(this, HitMarkerClass);
+    if (HitMarker)
+    {
+        HitMarker->AddToViewport();
+    }
+}
+
+void ABR_PlayerController::CreateCustomWidget(TSubclassOf<UUserWidget> Widget) 
+{
+    UUserWidget *CustomWidget = CreateWidget(this, Widget);
+    if (CustomWidget)
+    {
+        CustomWidget->AddToViewport();
+    }
+}

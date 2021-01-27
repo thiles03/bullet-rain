@@ -18,9 +18,12 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	//GETTERS
-	float GetAttackDamage();
-	float GetAttackSpeed();
-	float GetAttackRange();
+	UFUNCTION(BlueprintCallable)
+	float GetAttackDamage() const;
+	UFUNCTION(BlueprintCallable)
+	float GetAttackSpeed() const;
+	UFUNCTION(BlueprintCallable)
+	float GetAttackRange() const;
 
 protected:
 	//VARIABLES

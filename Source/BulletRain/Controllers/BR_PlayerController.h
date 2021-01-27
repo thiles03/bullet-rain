@@ -15,6 +15,8 @@ public:
 	//FUNCTIONS
 	void CreateDamageVignette();
 	void CreateSloMoVignette();
+	void CreateHitMarker();
+	void CreateCustomWidget(TSubclassOf<UUserWidget> Widget);
 
 protected:
 	// Called when the game starts
@@ -29,7 +31,9 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "User Interface", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<UUserWidget> DamageVignetteClass;
 	UPROPERTY(EditDefaultsOnly, Category = "User Interface", meta = (AllowPrivateAccess = "true"))
-	TSubclassOf<UUserWidget> SloMoVignetteClass;	
+	TSubclassOf<UUserWidget> SloMoVignetteClass;
+	UPROPERTY(EditDefaultsOnly, Category = "User Interface", meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<UUserWidget> HitMarkerClass;	
 	UPROPERTY(EditDefaultsOnly, Category = "User Interface", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<UUserWidget> WinScreenClass;
 	UPROPERTY(EditDefaultsOnly, Category = "User Interface", meta = (AllowPrivateAccess = "true"))

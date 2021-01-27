@@ -4,8 +4,10 @@
 #include "BulletRain/Components/BR_CombatHandler_Player.h"
 #include "Components/SceneComponent.h"
 #include "Components/SphereComponent.h"
+#include "GameFramework/Actor.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "TimerManager.h"
 
 
 // Sets default values
@@ -28,6 +30,7 @@ void ABR_Projectile::BeginPlay()
 	Super::BeginPlay();
 	Collider->OnComponentBeginOverlap.AddDynamic(this, &ABR_Projectile::OnBeginOverlap);
 	Damage = Cast<ABR_CharacterPlayer>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))->CombatHandler->GetAttackDamage();
+	GetWorldTimerManager().SetTimer(DestroyTimer, this, &ABR_Projectile::DestroyActor, LifeTime, false);
 }
 
 // Called every frame
@@ -58,4 +61,9 @@ void ABR_Projectile::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, class A
 	}
 	Destroy();
 	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, SweepResult.Location, (GetActorForwardVector().Rotation())*-1, FVector(-.4f));
+}
+
+void ABR_Projectile::DestroyActor() 
+{
+	Destroy();
 }

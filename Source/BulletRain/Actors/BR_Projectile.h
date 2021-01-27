@@ -48,8 +48,13 @@ private:
 	//VARIABLES
 	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
 	float Damage;
-	
+	UPROPERTY(EditAnywhere)
+	float LifeTime = 5.f;
+	FTimerHandle DestroyTimer;
+
 	//FUNCTIONS
 	UFUNCTION()
 	void OnBeginOverlap(UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
+	UFUNCTION()
+	void DestroyActor();
 };
