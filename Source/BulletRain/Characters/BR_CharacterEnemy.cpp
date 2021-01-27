@@ -12,6 +12,8 @@ ABR_CharacterEnemy::ABR_CharacterEnemy()
 {
     PrimaryActorTick.bCanEverTick = true; // Set this character to call Tick() every frame.
 
+	CharacterCombatHandler = CreateDefaultSubobject<UBR_CombatHandler_Enemy>(TEXT("Combat Handler"));
+	CharacterStats = CreateDefaultSubobject<UBR_CharacterStats_Enemy>(TEXT("Character Stats"));
     PawnSensor = CreateDefaultSubobject<UPawnSensingComponent>(TEXT("Pawn Sensing"));
     PawnSensor->SensingInterval = .016f; //60fps
     PawnSensor->SetPeripheralVisionAngle(45.f);
@@ -38,8 +40,6 @@ void ABR_CharacterEnemy::BeginPlay()
 {
     Super::BeginPlay();
     AIController = Cast<ABR_AIController>(GetController());
-    CharacterStats = FindComponentByClass<UBR_CharacterStats_Enemy>();
-    CharacterCombatHandler = FindComponentByClass<UBR_CombatHandler_Enemy>();
     PawnSensor->OnSeePawn.AddDynamic(this, &ABR_CharacterEnemy::OnSeePawn);
 }
 

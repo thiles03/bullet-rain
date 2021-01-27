@@ -29,7 +29,7 @@ protected:
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
 	float AttackSpeed = 5.f;
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
-	float AttackRange = 100.f;
+	float AttackRange = 50.f;
 
 	//FUNCTIONS
 	// Called when the game starts

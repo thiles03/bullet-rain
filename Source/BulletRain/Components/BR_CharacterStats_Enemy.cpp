@@ -28,6 +28,8 @@ void UBR_CharacterStats_Enemy::TickComponent(float DeltaTime, ELevelTick TickTyp
 void UBR_CharacterStats_Enemy::Die()
 {
 	Super::Die();
+	IsDead = true;
+	// Destroy timer
 	GetOwner()->Destroy();
 	Cast<ABR_GameMode_Base>(GetWorld()->GetAuthGameMode())->SetKillCount(1);
 }

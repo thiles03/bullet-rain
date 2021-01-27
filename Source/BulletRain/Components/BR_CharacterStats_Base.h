@@ -27,6 +27,8 @@ public:
 	void SetMaxHealth(float HealthValue);
 	UFUNCTION(BlueprintCallable)
 	void UpdateCurrentHealth(float HealthValue);
+	UFUNCTION(BlueprintCallable)
+	void SetIsDead(bool Dead);
 
 	//GETTERS
 	//Armour
@@ -35,6 +37,8 @@ public:
 	//Health
 	UFUNCTION(BlueprintCallable)
 	float GetHealthPercent() const;
+	UFUNCTION(BlueprintCallable)
+	bool GetIsDead() const;
 
 	//FUNCTIONS
 	// Damage handlers
@@ -56,6 +60,8 @@ protected:
 	float MaxHealth = 100.0f;
 	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
 	float CurrentHealth;
+	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
+	bool IsDead = false;
 
 	//FUNCTIONS
 	// Called when the game starts

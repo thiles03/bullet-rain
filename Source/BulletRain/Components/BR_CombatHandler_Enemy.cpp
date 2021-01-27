@@ -20,9 +20,14 @@ void UBR_CombatHandler_Enemy::BeginPlay()
 void UBR_CombatHandler_Enemy::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	if(FVector::Dist(GetOwner()->GetActorLocation(), Player->GetActorLocation()) < AttackRange)
+	// If player is within range then attack
+	if(FVector::Dist(GetOwner()->GetActorLocation(), Player->GetActorLocation()) <= (AttackRange + 100.f))
 	{
 		Attack();
+	}
+	else
+	{
+		IsAttacking = false;
 	}
 }
 

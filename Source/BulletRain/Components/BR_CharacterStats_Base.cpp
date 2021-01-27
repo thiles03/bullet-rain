@@ -44,6 +44,11 @@ void UBR_CharacterStats_Base::UpdateCurrentHealth(float HealthValue)
 	CurrentHealth = FMath::Clamp(CurrentHealth + HealthValue, 0.f, MaxHealth);
 }
 
+void UBR_CharacterStats_Base::SetIsDead(bool Dead) 
+{
+	IsDead = Dead;
+}
+
 //GETTERS
 float UBR_CharacterStats_Base::GetArmourPercent() const
 {
@@ -53,6 +58,11 @@ float UBR_CharacterStats_Base::GetArmourPercent() const
 float UBR_CharacterStats_Base::GetHealthPercent() const
 {
 	return CurrentHealth / MaxHealth;
+}
+
+bool UBR_CharacterStats_Base::GetIsDead() const
+{
+	return IsDead;
 }
 
 // Take blockable damage to armour and health

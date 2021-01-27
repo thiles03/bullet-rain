@@ -18,6 +18,14 @@ public:
 	//CONSTRUCTOR
 	ABR_CharacterEnemy();
 
+	//COMPONENTS
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UPawnSensingComponent *PawnSensor;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UBR_CombatHandler_Enemy *CharacterCombatHandler;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UBR_CharacterStats_Enemy *CharacterStats;
+
 	//FUNCTIONS
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -34,20 +42,10 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	//COMPONENTS
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	UPawnSensingComponent *PawnSensor;
-
 	//VARIABLES
 	// Reference to this character's AI controller
 	UPROPERTY()
 	ABR_AIController *AIController;
-	// Reference to this character's stats
-	UPROPERTY()
-	UBR_CharacterStats_Enemy *CharacterStats;
-	// Reference to this character's combat component
-	UPROPERTY()
-	UBR_CombatHandler_Enemy *CharacterCombatHandler;
 	// Is the player within sight line
 	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"));
 	bool IsPlayerVisible = false;
