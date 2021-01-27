@@ -6,6 +6,7 @@
 #include "BR_CombatHandler_Player.generated.h"
 
 class ABR_Projectile;
+class ABR_Grenade;
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class BULLETRAIN_API UBR_CombatHandler_Player : public UBR_CombatHandler_Base
@@ -22,12 +23,15 @@ public:
 	// Weapons
 	void Fire(EPistol Pistol);
 	void Reload(EPistol Pistol);
+	void ThrowGrenade();
 
 	//GETTERS
 	UFUNCTION(BlueprintCallable)
 	int GetWeaponAmmo(EPistol Pistol) const;
 	UFUNCTION(BlueprintCallable)
 	int GetCarriedAmmo() const;
+	UFUNCTION(BlueprintCallable)
+	int GetCurrentGrenades() const;
 	UFUNCTION(BlueprintCallable)
 	bool GetIsReloading() const;
 	UFUNCTION(BlueprintCallable)
@@ -40,6 +44,10 @@ public:
 	void SetMaxCarriedAmmo(int Capacity);
 	UFUNCTION(BlueprintCallable)
 	void SetCurrentCarriedAmmo(int Amount);
+	UFUNCTION(BlueprintCallable)
+	void SetCurrentGrenades(int Amount);
+	UFUNCTION(BlueprintCallable)
+	void SetMaxGrenades(int Amount);
 	UFUNCTION(BlueprintCallable)
 	void SetMaxMagAmmo(int Capacity);
 	UFUNCTION(BlueprintCallable)
@@ -58,6 +66,8 @@ private:
 	//Weapon/ammo properties
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<ABR_Projectile> ProjectileClass;
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<ABR_Grenade> GrenadeClass;
 	UPROPERTY(EditAnywhere)
 	int MaxMagAmmo = 17;
 	UPROPERTY(EditAnywhere)
@@ -68,6 +78,12 @@ private:
 	int AmmoLeft;
 	UPROPERTY(VisibleAnywhere)
 	int AmmoRight;
+	UPROPERTY(EditAnywhere)
+	int MaxGrenades = 3;
+	UPROPERTY(VisibleAnywhere)
+	int CurrentGrenades;
+	UPROPERTY(EditAnywhere)
+	FVector GrenadeOffset = FVector(300.f, 0.f, 0.f);
 	//Reload handling
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
 	float ReloadSpeed = 3.f;

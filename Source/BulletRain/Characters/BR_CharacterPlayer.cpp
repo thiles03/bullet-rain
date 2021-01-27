@@ -48,6 +48,7 @@ void ABR_CharacterPlayer::SetupPlayerInputComponent(UInputComponent *PlayerInput
 	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &ABR_CharacterPlayer::ToggleCrouch);
 	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &ABR_CharacterPlayer::Sprint);
 	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &ABR_CharacterPlayer::SprintReset);
+	PlayerInputComponent->BindAction("Grenade", IE_Released, this, &ABR_CharacterPlayer::ThrowGrenade);
 
 	// Combat
 	DECLARE_DELEGATE_OneParam(FCustomInputDelegate, const EPistol);
@@ -101,6 +102,11 @@ void ABR_CharacterPlayer::Reload(EPistol Pistol)
 {
 	if (Pistol == EPistol::LEFT) {CombatHandler->Reload(EPistol::LEFT);}
 	if (Pistol == EPistol::RIGHT) {CombatHandler->Reload(EPistol::RIGHT);}
+}
+
+void ABR_CharacterPlayer::ThrowGrenade() 
+{
+	CombatHandler->ThrowGrenade();
 }
 
 // Look right/left using gamepad

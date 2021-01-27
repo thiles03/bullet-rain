@@ -29,8 +29,12 @@ private:
 	//VARIABLES
 	//Player controller
 	ABR_PlayerController* PlayerController;
+	UPROPERTY(EditAnywhere)
+	float DestroyDelay = 5.f;
+	FTimerHandle DestroyTimer;
 
 	//FUNCTIONS
 	// Death handler
 	virtual void Die() override;
+	void DestroyActor();
 };

@@ -1,8 +1,12 @@
 #include "BR_CharacterStats_Enemy.h"
+#include "BulletRain/Characters/BR_CharacterEnemy.h"
 #include "BulletRain/Controllers/BR_PlayerController.h"
 #include "BulletRain/GameModes/BR_GameMode_Base.h"
+#include "Components/CapsuleComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
+#include "TimerManager.h"
 
 // Constructor
 UBR_CharacterStats_Enemy::UBR_CharacterStats_Enemy()
@@ -35,12 +39,18 @@ void UBR_CharacterStats_Enemy::TakeUnblockableDamage(float Damage, float Unblock
 	PlayerController->CreateHitMarker();
 }
 
-
 void UBR_CharacterStats_Enemy::Die()
 {
 	Super::Die();
 	IsDead = true;
-	// Destroy timer
-	GetOwner()->Destroy();
+	class ABR_CharacterEnemy* EnemyCharacter = Cast<ABR_CharacterEnemy>(GetOwner());
+	EnemyCharacter->GetMesh()->SetSimulatePhysics(true);
+	EnemyCharacter->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	GetWorld()->GetTimerManager().SetTimer(DestroyTimer, this, &UBR_CharacterStats_Enemy::DestroyActor, DestroyDelay, false);
 	Cast<ABR_GameMode_Base>(GetWorld()->GetAuthGameMode())->SetKillCount(1);
+}
+
+void UBR_CharacterStats_Enemy::DestroyActor() 
+{
+	GetOwner()->Destroy();
 }

@@ -91,6 +91,7 @@ private:
 	void BulletTime();
 	void Fire(EPistol Pistol);
 	void Reload(EPistol Pistol);
+	void ThrowGrenade();
 
 	//Aiming
 	void Aim();

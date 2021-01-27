@@ -1,5 +1,6 @@
 #include "BR_CombatHandler_Player.h"
 #include "BulletRain/Actors/BR_Projectile.h"
+#include "BulletRain/Actors/BR_Grenade.h"
 #include "Components/SceneComponent.h"
 #include "Engine/SkeletalMeshSocket.h"
 #include "GameFramework/Character.h"
@@ -20,7 +21,7 @@ void UBR_CombatHandler_Player::BeginPlay()
 {
 	Super::BeginPlay();
 	PlayerMesh = Cast<ACharacter>(GetOwner())->GetMesh();
-	AmmoLeft = MaxMagAmmo, AmmoRight = MaxMagAmmo;
+	AmmoLeft = MaxMagAmmo, AmmoRight = MaxMagAmmo, CurrentGrenades = MaxGrenades;
 	ReloadDelegateLeft = FTimerDelegate::CreateUObject(this, &UBR_CombatHandler_Player::SetIsReloading, EPistol::LEFT, false);
 	ReloadDelegateRight = FTimerDelegate::CreateUObject(this, &UBR_CombatHandler_Player::SetIsReloading, EPistol::RIGHT, false);
 }
@@ -35,6 +36,11 @@ void UBR_CombatHandler_Player::TickComponent(float DeltaTime, ELevelTick TickTyp
 int UBR_CombatHandler_Player::GetCarriedAmmo() const
 {
 	return CurrentCarriedAmmo;
+}
+
+int UBR_CombatHandler_Player::GetCurrentGrenades() const
+{
+	return CurrentGrenades;
 }
 
 // Return true if player is reloading
@@ -79,6 +85,16 @@ void UBR_CombatHandler_Player::SetMaxCarriedAmmo(int Capacity)
 void UBR_CombatHandler_Player::SetCurrentCarriedAmmo(int Amount) 
 {
 	CurrentCarriedAmmo = FMath::Clamp((CurrentCarriedAmmo + Amount), 0, MaxCarriedAmmo);
+}
+
+void UBR_CombatHandler_Player::SetCurrentGrenades(int Amount) 
+{
+	CurrentGrenades += FMath::Clamp((CurrentGrenades + Amount), 0, MaxGrenades);
+}
+
+void UBR_CombatHandler_Player::SetMaxGrenades(int Amount) 
+{
+	MaxGrenades = Amount;
 }
 
 // Set the maximum magazine size
@@ -181,6 +197,18 @@ void UBR_CombatHandler_Player::Reload(EPistol Pistol)
 		}
 	}
 	SetIsReloading(Pistol, true);
+}
+
+void UBR_CombatHandler_Player::ThrowGrenade() 
+{
+	if(CurrentGrenades == 0) return;
+	
+	// Spawn grenade
+	if (!GrenadeClass) {return;}
+	FVector RotatedOffest = GetWorld()->GetFirstPlayerController()->GetControlRotation().RotateVector(GrenadeOffset);
+	FVector SpawnLocation = (GetOwner()->GetActorLocation()) + RotatedOffest;
+	ABR_Grenade *GrenadeTemp = GetWorld()->SpawnActor<ABR_Grenade>(GrenadeClass, SpawnLocation, GetOwner()->GetActorRotation());
+	//CurrentGrenades--;
 }
 
 // Returns the point under the crosshair that is equals to the range distance from the player

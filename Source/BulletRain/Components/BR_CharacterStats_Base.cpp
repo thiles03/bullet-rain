@@ -1,4 +1,5 @@
 #include "BR_CharacterStats_Base.h"
+#include "GameFramework/Pawn.h"
 #include "Math/UnrealMathUtility.h"
 
 //Constructor
@@ -20,7 +21,7 @@ void UBR_CharacterStats_Base::BeginPlay()
 void UBR_CharacterStats_Base::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	if (CurrentHealth == 0) Die();
+	if (CurrentHealth == 0 && IsDead == false) Die();
 }
 
 //SETTERS
@@ -86,5 +87,5 @@ void UBR_CharacterStats_Base::TakeUnblockableDamage(float Damage, float Unblocka
 
 void UBR_CharacterStats_Base::Die() 
 {
-	
+	Cast<APawn>(GetOwner())->DetachFromControllerPendingDestroy();
 }
