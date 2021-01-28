@@ -35,9 +35,6 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "User Interface", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<UUserWidget> HitMarkerClass;	
 	UPROPERTY(EditDefaultsOnly, Category = "User Interface", meta = (AllowPrivateAccess = "true"))
-	TSubclassOf<UUserWidget> WinScreenClass;
-	UPROPERTY(EditDefaultsOnly, Category = "User Interface", meta = (AllowPrivateAccess = "true"))
-	TSubclassOf<UUserWidget> LoseScreenClass;
 
 	UUserWidget* HUDWidget;
 	UUserWidget* CrossHairWidget;
