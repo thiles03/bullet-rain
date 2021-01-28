@@ -29,6 +29,11 @@ public:
 	//FUNCTIONS
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	// Death events
+	UFUNCTION(BlueprintImplementableEvent)
+	void DecrementWorldEnemies();
+	UFUNCTION(BlueprintImplementableEvent)
+	void SpawnPickup();
 
 	//GETTERS
 	bool GetIsPlayerVisible();

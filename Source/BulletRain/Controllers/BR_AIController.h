@@ -32,7 +32,14 @@ private:
 	UPROPERTY(EditAnywhere)
 	float PatrolDelay = 5.f;
 	UPROPERTY(EditAnywhere)
-	float PatrolRadius = 300.f;
+	float PatrolRadius = 10000.f;
+	UPROPERTY(EditAnywhere)
+	float ResetVisibiltyDelay = .5f;
 	FTimerHandle PatrolTimer;
+	FTimerHandle VisibilityTimer;
+
+	//FUNCTIONS
+	UFUNCTION()
+	void ResetPlayerVisible();
 
 };

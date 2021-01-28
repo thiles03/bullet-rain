@@ -24,6 +24,5 @@ void ABR_PickUp_Ammo::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, class 
 {
 	Super::OnBeginOverlap(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
 	if (!Player) return;
-	Player->CombatHandler->SetCurrentCarriedAmmo(AmmoValue);
-	Destroy();		
+	Player->CombatHandler->SetCurrentCarriedAmmo(AmmoValue);		
 }

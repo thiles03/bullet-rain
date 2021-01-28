@@ -25,8 +25,13 @@ ABR_Grenade::ABR_Grenade()
 void ABR_Grenade::BeginPlay()
 {
 	Super::BeginPlay();
-	FVector PlayerForwardVector = UGameplayStatics::GetPlayerPawn(GetWorld(), 0)->GetActorForwardVector();
-	StaticMesh->AddImpulse(PlayerForwardVector * ThrowForce);
+	// Find player view rotation
+	FVector PlayerViewpointLocation;
+	FRotator PlayerViewpointRotation;
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(PlayerViewpointLocation, PlayerViewpointRotation);
+	// Get forward vector and add impulse force
+	FVector ViewForwardVector = PlayerViewpointRotation.Vector();
+	StaticMesh->AddImpulse(ViewForwardVector * ThrowForce);
 	GetWorldTimerManager().SetTimer(DestroyTimer, this, &ABR_Grenade::DestroyActor, Fuse, false);
 }
 

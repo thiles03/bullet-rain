@@ -25,6 +25,7 @@ void ABR_PickUp_Base::BeginPlay()
 void ABR_PickUp_Base::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	SphereCollider->AddRelativeRotation(FRotator(0.f, 3.f, 0.f));
 }
 
 // Overlap event

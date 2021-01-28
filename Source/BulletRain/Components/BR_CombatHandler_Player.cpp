@@ -89,7 +89,7 @@ void UBR_CombatHandler_Player::SetCurrentCarriedAmmo(int Amount)
 
 void UBR_CombatHandler_Player::SetCurrentGrenades(int Amount) 
 {
-	CurrentGrenades += FMath::Clamp((CurrentGrenades + Amount), 0, MaxGrenades);
+	CurrentGrenades = FMath::Clamp((CurrentGrenades + Amount), 0, MaxGrenades);
 }
 
 void UBR_CombatHandler_Player::SetMaxGrenades(int Amount) 
@@ -208,7 +208,7 @@ void UBR_CombatHandler_Player::ThrowGrenade()
 	FVector RotatedOffest = GetWorld()->GetFirstPlayerController()->GetControlRotation().RotateVector(GrenadeOffset);
 	FVector SpawnLocation = (GetOwner()->GetActorLocation()) + RotatedOffest;
 	ABR_Grenade *GrenadeTemp = GetWorld()->SpawnActor<ABR_Grenade>(GrenadeClass, SpawnLocation, GetOwner()->GetActorRotation());
-	//CurrentGrenades--;
+	CurrentGrenades--;
 }
 
 // Returns the point under the crosshair that is equals to the range distance from the player

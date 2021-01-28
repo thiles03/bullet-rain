@@ -24,6 +24,5 @@ void ABR_PickUp_Grenade::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, cla
 {
 	Super::OnBeginOverlap(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
 	if (!Player) return;
-	Player->CombatHandler->SetCurrentGrenades(GrenadeValue);
-	Destroy();		
+	Player->CombatHandler->SetCurrentGrenades(GrenadeValue);		
 }

@@ -56,6 +56,8 @@ void UBR_CharacterStats_Enemy::Die()
 	EnemyCharacter->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	GetWorld()->GetTimerManager().SetTimer(DestroyTimer, this, &UBR_CharacterStats_Enemy::DestroyActor, DestroyDelay, false);
 	Cast<ABR_GameMode_Base>(GetWorld()->GetAuthGameMode())->SetKillCount(1);
+	EnemyCharacter->DecrementWorldEnemies();
+	EnemyCharacter->SpawnPickup();
 }
 
 void UBR_CharacterStats_Enemy::DestroyActor() 

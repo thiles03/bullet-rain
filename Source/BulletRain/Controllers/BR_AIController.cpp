@@ -9,7 +9,7 @@ void ABR_AIController::BeginPlay()
 {
     Super::BeginPlay();
     EnemyCharacter = Cast<ABR_CharacterEnemy>(GetCharacter());
-    //GetWorldTimerManager().SetTimer(PatrolTimer, this, &ABR_AIController::Patrol, PatrolDelay, true);
+    GetWorldTimerManager().SetTimer(PatrolTimer, this, &ABR_AIController::Patrol, PatrolDelay, true);
 }
 
 // Called every frame
@@ -21,20 +21,22 @@ void ABR_AIController::Tick(float DeltaTime)
 // Move to within a certain range of a location
 void ABR_AIController::Patrol()
 {
-    if (EnemyCharacter->GetIsPlayerVisible() == true) return;
+    if (!EnemyCharacter || EnemyCharacter->GetIsPlayerVisible() == true) return;
     FNavLocation Result;
     UNavigationSystemV1* NavSys = UNavigationSystemV1::GetCurrent(GetWorld());
     NavSys->GetRandomReachablePointInRadius(EnemyCharacter->GetActorLocation(), PatrolRadius, Result);
     MoveToLocation(Result.Location, 0.f);
 }
 
-// Move to within attack range of location and reset player visibility on completion
+// Move to within attack range of location
 void ABR_AIController::MoveToAttack(FVector Location, float Range)
 {
-    EPathFollowingRequestResult::Type Result = MoveToLocation(Location, Range);
+    MoveToLocation(Location, Range);
+    GetWorldTimerManager().SetTimer(VisibilityTimer, this, &ABR_AIController::ResetPlayerVisible, ResetVisibiltyDelay, true);
+}
 
-    if (Result == EPathFollowingRequestResult::RequestSuccessful || EPathFollowingRequestResult::Failed)
-    {
-        EnemyCharacter->SetIsPlayerVisible(false);
-    }
+// Reset player visibility
+void ABR_AIController::ResetPlayerVisible()
+{
+    EnemyCharacter->SetIsPlayerVisible(false);
 }

@@ -15,8 +15,8 @@ ABR_CharacterEnemy::ABR_CharacterEnemy()
 	CharacterCombatHandler = CreateDefaultSubobject<UBR_CombatHandler_Enemy>(TEXT("Combat Handler"));
 	CharacterStats = CreateDefaultSubobject<UBR_CharacterStats_Enemy>(TEXT("Character Stats"));
     PawnSensor = CreateDefaultSubobject<UPawnSensingComponent>(TEXT("Pawn Sensing"));
-    PawnSensor->SensingInterval = .016f; //60fps
-    PawnSensor->SetPeripheralVisionAngle(45.f);
+    PawnSensor->SensingInterval = .2f;
+    PawnSensor->SetPeripheralVisionAngle(55.f);
 }
 
 // Called every frame
@@ -62,7 +62,7 @@ void ABR_CharacterEnemy::OnSeePawn(APawn *OtherPawn)
     if (Player)
     {
         IsPlayerVisible = true;
-        //AIController->MoveToAttack(Player->GetActorLocation(), CharacterCombatHandler->GetAttackRange());
+        AIController->MoveToAttack(Player->GetActorLocation(), CharacterCombatHandler->GetAttackRange());
     }
 }
 
