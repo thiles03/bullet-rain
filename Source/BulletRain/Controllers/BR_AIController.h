@@ -15,7 +15,8 @@ public:
 	//FUNCTIONS
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	// Move to given location
+	UFUNCTION(BlueprintCallable)
+	void StartPatrolling();
 	void Patrol();
 	void MoveToAttack(FVector Location, float Range);
 
@@ -41,5 +42,4 @@ private:
 	//FUNCTIONS
 	UFUNCTION()
 	void ResetPlayerVisible();
-
 };

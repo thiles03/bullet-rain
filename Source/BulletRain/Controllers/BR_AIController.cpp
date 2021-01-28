@@ -8,8 +8,6 @@
 void ABR_AIController::BeginPlay() 
 {
     Super::BeginPlay();
-    EnemyCharacter = Cast<ABR_CharacterEnemy>(GetCharacter());
-    GetWorldTimerManager().SetTimer(PatrolTimer, this, &ABR_AIController::Patrol, PatrolDelay, true);
 }
 
 // Called every frame
@@ -21,6 +19,7 @@ void ABR_AIController::Tick(float DeltaTime)
 // Move to within a certain range of a location
 void ABR_AIController::Patrol()
 {
+    EnemyCharacter = Cast<ABR_CharacterEnemy>(GetCharacter());
     if (!EnemyCharacter || EnemyCharacter->GetIsPlayerVisible() == true) return;
     FNavLocation Result;
     UNavigationSystemV1* NavSys = UNavigationSystemV1::GetCurrent(GetWorld());
@@ -38,5 +37,13 @@ void ABR_AIController::MoveToAttack(FVector Location, float Range)
 // Reset player visibility
 void ABR_AIController::ResetPlayerVisible()
 {
-    EnemyCharacter->SetIsPlayerVisible(false);
+    if (EnemyCharacter) EnemyCharacter->SetIsPlayerVisible(false);
+}
+
+// Start repeating patrol timer
+void ABR_AIController::StartPatrolling() 
+{
+    EnemyCharacter = Cast<ABR_CharacterEnemy>(GetCharacter());
+    EnemyCharacter->SetIsPatrolling(true);
+    GetWorldTimerManager().SetTimer(PatrolTimer, this, &ABR_AIController::Patrol, PatrolDelay, true);
 }

@@ -36,10 +36,12 @@ public:
 	void SpawnPickup();
 
 	//GETTERS
-	bool GetIsPlayerVisible();
+	bool GetIsPlayerVisible() const;
+	bool GetIsPatrolling() const;
 
 	// SETTERS
 	void SetIsPlayerVisible(bool IsVisible);
+	void SetIsPatrolling(bool Patrolling);
 
 protected:
 	//FUNCTIONS
@@ -54,6 +56,8 @@ private:
 	// Is the player within sight line
 	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"));
 	bool IsPlayerVisible = false;
+	UPROPERTY(VisibleAnywhere)
+	bool IsPatrolling = false;
 
 	//FUNCTIONS
 	// On overlap event

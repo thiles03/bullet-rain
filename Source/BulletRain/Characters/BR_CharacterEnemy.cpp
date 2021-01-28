@@ -25,9 +25,14 @@ void ABR_CharacterEnemy::Tick(float DeltaTime)
     Super::Tick(DeltaTime);
 }
 
-bool ABR_CharacterEnemy::GetIsPlayerVisible() 
+bool ABR_CharacterEnemy::GetIsPlayerVisible() const
 {
     return IsPlayerVisible;
+}
+
+bool ABR_CharacterEnemy::GetIsPatrolling() const
+{
+    return IsPatrolling;
 }
 
 void ABR_CharacterEnemy::SetIsPlayerVisible(bool IsVisible) 
@@ -35,11 +40,18 @@ void ABR_CharacterEnemy::SetIsPlayerVisible(bool IsVisible)
     IsPlayerVisible = IsVisible;
 }
 
+void ABR_CharacterEnemy::SetIsPatrolling(bool Patrolling) 
+{
+    IsPatrolling = Patrolling;
+}
+
 // Called when the game starts or when spawned
 void ABR_CharacterEnemy::BeginPlay()
 {
     Super::BeginPlay();
     AIController = Cast<ABR_AIController>(GetController());
+    AIController->Possess(this);
+    AIController->StartPatrolling();
     PawnSensor->OnSeePawn.AddDynamic(this, &ABR_CharacterEnemy::OnSeePawn);
 }
 
