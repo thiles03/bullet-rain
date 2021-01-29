@@ -46,9 +46,6 @@ void UBR_CombatHandler_Enemy::SetIsAttacking(bool Attacking)
 void UBR_CombatHandler_Enemy::Attack() 
 {
 	if(IsAttacking == true) return;
-	// Do damage
-	// Spawn grunt sound
-	// Spawn impact sound
-	// Spawn vfx
+	UGameplayStatics::PlaySoundAtLocation(GetWorld(), ImpactSound, GetOwner()->GetActorLocation());
 	IsAttacking = true;
 }

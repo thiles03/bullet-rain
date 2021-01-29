@@ -16,6 +16,7 @@ public:
 	void CreateDamageVignette();
 	void CreateSloMoVignette();
 	void CreateHitMarker();
+	void CreateLoseScreen();
 	void CreateCustomWidget(TSubclassOf<UUserWidget> Widget);
 
 protected:
@@ -35,6 +36,7 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "User Interface", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<UUserWidget> HitMarkerClass;	
 	UPROPERTY(EditDefaultsOnly, Category = "User Interface", meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<UUserWidget> LoseScreenClass;
 
 	UUserWidget* HUDWidget;
 	UUserWidget* CrossHairWidget;

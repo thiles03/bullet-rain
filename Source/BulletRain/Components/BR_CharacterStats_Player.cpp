@@ -111,6 +111,9 @@ void UBR_CharacterStats_Player::EnableRegen()
 
 void UBR_CharacterStats_Player::Die()
 {
+	IsDead = true;
+	GetOwner()->DisableInput(PlayerController);
+	GetOwner()->GetWorldTimerManager().SetTimer(DeathTimer, this, &UBR_CharacterStats_Player::LoseScreen, LoseScreenDelay, false);
 	Super::Die();
 }
 
@@ -120,4 +123,9 @@ void UBR_CharacterStats_Player::Damaged()
 	CanRegenHealth = false;
 	GetOwner()->GetWorldTimerManager().SetTimer(RegenResetTimer, this, &UBR_CharacterStats_Player::EnableRegen, RegenDelay, false);
 	PlayerController->CreateDamageVignette();
+}
+
+void UBR_CharacterStats_Player::LoseScreen() 
+{
+	PlayerController->CreateLoseScreen();
 }

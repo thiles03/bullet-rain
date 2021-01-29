@@ -50,7 +50,6 @@ void UBR_CharacterStats_Enemy::TakeExplosiveDamage(FVector ExplosionLocation, FV
 void UBR_CharacterStats_Enemy::Die()
 {
 	Super::Die();
-	IsDead = true;
 	ABR_CharacterEnemy* EnemyCharacter = Cast<ABR_CharacterEnemy>(GetOwner());
 	EnemyCharacter->GetMesh()->SetSimulatePhysics(true);
 	EnemyCharacter->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -62,5 +61,6 @@ void UBR_CharacterStats_Enemy::Die()
 
 void UBR_CharacterStats_Enemy::DestroyActor() 
 {
+	Cast<APawn>(GetOwner())->DetachFromControllerPendingDestroy();
 	GetOwner()->Destroy();
 }

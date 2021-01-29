@@ -87,5 +87,5 @@ void UBR_CharacterStats_Base::TakeUnblockableDamage(float Damage, float Unblocka
 
 void UBR_CharacterStats_Base::Die() 
 {
-	Cast<APawn>(GetOwner())->DetachFromControllerPendingDestroy();
+	IsDead = true;
 }

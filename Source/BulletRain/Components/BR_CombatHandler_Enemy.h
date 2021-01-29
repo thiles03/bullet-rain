@@ -42,9 +42,7 @@ private:
 	bool IsAttacking = false;
 	// SFX & VFX
 	UPROPERTY(EditAnywhere)
-	USoundBase* EffortSound;
+	USoundBase* MinionSound;
 	UPROPERTY(EditAnywhere)
 	USoundBase* ImpactSound;
-	UPROPERTY(EditAnywhere)
-	UParticleSystem *ImpactEffect;
 };

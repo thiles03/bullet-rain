@@ -69,9 +69,14 @@ private:
 	bool IsBulletTimeActive = false;
 	//Player controller
 	ABR_PlayerController* PlayerController;
+	// Death timer
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	float LoseScreenDelay = 3.f;
+	FTimerHandle DeathTimer;
 
 	//FUNCTIONS
 	void Damaged();
 	void EnableRegen();
 	virtual void Die() override;
+	void LoseScreen();
 };

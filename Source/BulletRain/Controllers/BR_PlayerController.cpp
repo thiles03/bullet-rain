@@ -41,6 +41,15 @@ void ABR_PlayerController::CreateHitMarker()
     }
 }
 
+void ABR_PlayerController::CreateLoseScreen() 
+{
+    UUserWidget *LoseScreen = CreateWidget(this, LoseScreenClass);
+    if (LoseScreen)
+    {
+        LoseScreen->AddToViewport();
+    }
+}
+
 void ABR_PlayerController::CreateCustomWidget(TSubclassOf<UUserWidget> Widget) 
 {
     UUserWidget *CustomWidget = CreateWidget(this, Widget);
